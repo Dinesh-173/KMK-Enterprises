@@ -1,0 +1,462 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+@import "tailwindcss";
+
+/* ============================================
+   TAILWIND V4 THEME TOKENS
+   ============================================ */
+@theme {
+  --color-navy: #0B1F3A;
+  --color-navy-light: #112848;
+  --color-navy-dark: #060f1e;
+  --color-teal: #00A896;
+  --color-teal-light: #00c4ae;
+  --color-teal-dark: #007a6e;
+  --color-purple-brand: #7B2FBE;
+  --color-purple-light: #9B4FDE;
+  --color-purple-dark: #5a1f8e;
+  --color-amber-brand: #F4A100;
+  --color-amber-light: #FFB830;
+  --color-amber-dark: #c07d00;
+  --color-slate-muted: #8896A5;
+
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-ring: pulseRing 2s ease-out infinite;
+  --animate-spin-slow: spin 20s linear infinite;
+  --animate-shimmer: shimmer 2s infinite;
+  --animate-bounce-subtle: bounceSutble 2s ease-in-out infinite;
+
+  --shadow-teal-glow: 0 0 30px rgba(0, 168, 150, 0.4);
+  --shadow-teal-glow-lg: 0 0 60px rgba(0, 168, 150, 0.5);
+  --shadow-purple-glow: 0 0 30px rgba(123, 47, 190, 0.4);
+  --shadow-amber-glow: 0 0 30px rgba(244, 161, 0, 0.4);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   KEYFRAMES
+   ============================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gradientMesh {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes bounceSutble {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes borderDash {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes whatsappPulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+  70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+@keyframes dotDrift {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 -600px; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ============================================
+   BASE RESET & GLOBAL STYLES
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto;
+  font-size: 16px;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background-color: #0B1F3A;
+  color: #FFFFFF;
+  overflow-x: hidden;
+  line-height: 1.6;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #060f1e; }
+::-webkit-scrollbar-thumb { background: #00A896; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #00c4ae; }
+
+/* ============================================
+   GRAIN OVERLAY TEXTURE
+   ============================================ */
+.grain-overlay::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px;
+}
+
+/* ============================================
+   GLASS MORPHISM
+   ============================================ */
+.glass {
+  background: rgba(11, 31, 58, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-teal {
+  background: rgba(0, 168, 150, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 168, 150, 0.2);
+}
+
+/* ============================================
+   GLOW UTILITIES
+   ============================================ */
+.glow-teal {
+  box-shadow: 0 0 30px rgba(0, 168, 150, 0.4), 0 0 60px rgba(0, 168, 150, 0.2);
+}
+
+.glow-teal-text {
+  text-shadow: 0 0 30px rgba(0, 168, 150, 0.6);
+}
+
+.glow-purple {
+  box-shadow: 0 0 30px rgba(123, 47, 190, 0.4), 0 0 60px rgba(123, 47, 190, 0.2);
+}
+
+.glow-amber {
+  box-shadow: 0 0 30px rgba(244, 161, 0, 0.4), 0 0 60px rgba(244, 161, 0, 0.2);
+}
+
+/* ============================================
+   GRADIENT TEXT
+   ============================================ */
+.gradient-text-teal {
+  background: linear-gradient(135deg, #00A896, #00c4ae, #7fffd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-purple {
+  background: linear-gradient(135deg, #7B2FBE, #9B4FDE, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-amber {
+  background: linear-gradient(135deg, #F4A100, #FFB830, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-hero {
+  background: linear-gradient(135deg, #FFFFFF 30%, #00A896 70%, #7B2FBE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   ANIMATED GRADIENT BG
+   ============================================ */
+.animated-gradient-mesh {
+  background: linear-gradient(-45deg, #0B1F3A, #112848, #0a1628, #071520);
+  background-size: 400% 400%;
+  animation: gradientMesh 15s ease infinite;
+}
+
+/* ============================================
+   SECTION DEFAULTS
+   ============================================ */
+.section-padding {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+/* Page hero for all sub-pages — clears fixed navbar (80px) + breathing room */
+.page-hero {
+  padding-top: 120px;
+  padding-bottom: 80px;
+}
+
+/* Consistent inner content wrapper */
+.page-container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .page-hero {
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+}
+
+/* ============================================
+   ANIMATED BORDER DASH
+   ============================================ */
+.border-animated {
+  position: relative;
+  border: none;
+  background: transparent;
+}
+
+.border-animated::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1.5px solid transparent;
+  border-radius: inherit;
+  background: linear-gradient(#0B1F3A, #0B1F3A) padding-box,
+              linear-gradient(90deg, #00A896, #7B2FBE, #00A896) border-box;
+  background-size: 200% 100%;
+  animation: borderDash 3s linear infinite;
+}
+
+
+/* ============================================
+   BUTTON VARIANTS
+   ============================================ */
+.btn-glow-teal {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple-amber {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple-amber::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(244, 161, 0, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+
+.btn-ripple-amber:hover::after {
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+}
+
+/* ============================================
+   HEXAGONAL CLIP
+   ============================================ */
+.hex-clip {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* ============================================
+   3D CARD TILT BASE
+   ============================================ */
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+
+/* ============================================
+   TYPEWRITER CURSOR
+   ============================================ */
+.typewriter-cursor::after {
+  content: '|';
+  animation: blink 0.8s infinite;
+  color: #00A896;
+}
+
+/* ============================================
+   WHATSAPP PULSE
+   ============================================ */
+.whatsapp-pulse {
+  animation: whatsappPulse 2s infinite;
+}
+
+/* ============================================
+   SCROLL INDICATOR
+   ============================================ */
+.scroll-indicator {
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* ============================================
+   LENIS
+   ============================================ */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+/* ============================================
+   DOT MATRIX BG
+   ============================================ */
+.dot-matrix-bg {
+  background-image: radial-gradient(circle, rgba(0, 168, 150, 0.15) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: dotDrift 20s linear infinite;
+}
+
+/* ============================================
+   FORM SHAKE
+   ============================================ */
+.shake {
+  animation: shake 0.4s ease;
+}
+
+/* ============================================
+   FLIP CARD
+   ============================================ */
+.flip-card { perspective: 1000px; }
+
+.flip-card-inner {
+  position: relative;
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+  background: rgba(0, 168, 150, 0.3);
+  color: white;
+}
+
+/* ============================================
+   FLOATING LABEL UTILITIES
+   ============================================ */
+.floating-input {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.floating-label {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  transition: all 0.20s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+  font-size: 14px;
+  color: #8896A5;
+  background-color: transparent;
+  padding: 0;
+  z-index: 10;
+}
+
+/* Float label if input is focused or has a placeholder not shown (meaning has value) */
+.floating-input:focus ~ .floating-label,
+.floating-input:not(:placeholder-shown) ~ .floating-label {
+  top: -10px;
+  font-size: 11px;
+  background-color: #0B1F3A;
+  padding: 0 6px;
+}
+
+.floating-input:focus ~ .floating-label {
+  color: #00A896;
+}
+
+.floating-input.has-error ~ .floating-label {
+  color: #ef4444;
+}
+
