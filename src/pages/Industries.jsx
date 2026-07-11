@@ -90,11 +90,11 @@ export default function Industries() {
   return (
     <div className="bg-navy min-h-screen" style={{ backgroundColor: '#0B1F3A' }}>
       {/* ══ HERO ══ */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative" style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
+      <section className="relative min-h-[60vh] flex items-center pt-32 pb-20 md:pt-40 md:pb-28" style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
 
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(0,168,150,0.07) 0%, transparent 60%)' }} />
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
           <AnimatedSection>
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: '#00A896' }}>
               Where We Operate

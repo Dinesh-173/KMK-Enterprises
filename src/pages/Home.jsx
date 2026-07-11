@@ -282,7 +282,7 @@ export default function Home() {
                 className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
               >
                 <GlassCard
-                  className="p-8 h-full cursor-pointer group"
+                  className="p-8 h-full group"
                   glowColor={`${service.color}40`}
                 >
                   <div className="flex flex-col h-full">
@@ -294,13 +294,6 @@ export default function Home() {
                     </div>
                     <h3 className="text-lg font-bold text-white mb-3">{service.title}</h3>
                     <p className="text-sm leading-relaxed flex-1" style={{ color: '#8896A5' }}>{service.desc}</p>
-
-                    <div
-                      className="flex items-center gap-2 mt-6 text-sm font-semibold group-hover:gap-3 transition-all duration-200"
-                      style={{ color: service.color }}
-                    >
-                      Learn more <ArrowRight className="w-4 h-4" />
-                    </div>
                   </div>
                 </GlassCard>
               </motion.div>

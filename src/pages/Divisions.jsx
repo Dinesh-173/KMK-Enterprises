@@ -168,53 +168,69 @@ export default function Divisions() {
           </div>
         ))}
       </motion.div>
+      {/* Hero */}
+      <section className="relative min-h-[50vh] flex items-center pt-32 pb-16 md:pt-40 md:pb-20" style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <AnimatedSection>
+            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: '#00A896' }}>Our Portfolio</p>
+            <h1 className="text-4xl md:text-6xl font-black text-white mb-6">
+              Our <span className="gradient-text-teal">Divisions</span>
+            </h1>
+            <p className="text-lg max-w-2xl" style={{ color: '#8896A5' }}>
+              Discover how KMK Enterprises leads both in B2C food innovation and B2B specialty ingredient sourcing.
+            </p>
+          </AnimatedSection>
+        </div>
+      </section>
 
       {/* ══ SABROSA SECTION ══ */}
-      <section ref={sabrosaRef} className="relative min-h-screen overflow-hidden">
+      <section ref={sabrosaRef} className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0"
-          style={{ background: 'linear-gradient(135deg, rgba(123,47,190,0.15) 0%, #060f1e 60%)' }} />
+          style={{ background: 'linear-gradient(135deg, rgba(123,47,190,0.1) 0%, #060f1e 60%)' }} />
 
-        <Suspense fallback={null}>
-          <div className="absolute right-0 top-0 bottom-0 w-1/2 md:block hidden">
-            <IceCreamModel />
-          </div>
-        </Suspense>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 pt-36">
-
-          <div className="max-w-lg">
-            <motion.div
-              className="inline-flex px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
-              style={{ backgroundColor: 'rgba(123,47,190,0.2)', color: '#9B4FDE', border: '1px solid rgba(123,47,190,0.4)' }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              Division 01
-            </motion.div>
-
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-4">Sabrosa<br />Ice Creams</h2>
-
-
-            <p ref={sabrosaTagline.ref} className="text-xl font-semibold mb-6 typewriter-cursor"
-              style={{ color: '#9B4FDE', minHeight: '1.5em' }}>
-              {sabrosaTagline.displayed}
-            </p>
-
-            <p className="text-base mb-10" style={{ color: '#8896A5' }}>
-              Sabrosa is KMK's flagship ice cream brand — known for pioneering 
-              millet-based functional ice creams and traditional Indian kulfi experiences.
-            </p>
-
-            {/* BUG-03 FIX: Use React Router Link to avoid full page reload */}
-            <Link to="/contact">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text Info */}
+            <div className="max-w-xl">
               <motion.div
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white cursor-pointer"
-                style={{ background: 'linear-gradient(135deg, #7B2FBE, #5a1f8e)' }}
-                whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(123,47,190,0.5)' }}>
-                Partner with Sabrosa <ArrowRight className="w-5 h-5" />
+                className="inline-flex px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
+                style={{ backgroundColor: 'rgba(123,47,190,0.2)', color: '#9B4FDE', border: '1px solid rgba(123,47,190,0.4)' }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                Division 01
               </motion.div>
-            </Link>
+
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4">Sabrosa Ice Creams</h2>
+
+              <p ref={sabrosaTagline.ref} className="text-xl font-semibold mb-6 typewriter-cursor"
+                style={{ color: '#9B4FDE', minHeight: '1.5em' }}>
+                {sabrosaTagline.displayed}
+              </p>
+
+              <p className="text-base mb-10" style={{ color: '#8896A5' }}>
+                Sabrosa is KMK's flagship ice cream brand — known for pioneering 
+                millet-based functional ice creams and traditional Indian kulfi experiences.
+              </p>
+
+              {/* BUG-03 FIX: Use React Router Link to avoid full page reload */}
+              <Link to="/contact">
+                <motion.div
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white cursor-pointer"
+                  style={{ background: 'linear-gradient(135deg, #7B2FBE, #5a1f8e)' }}
+                  whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(123,47,190,0.5)' }}>
+                  Partner with Sabrosa <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </Link>
+            </div>
+
+            {/* Right: 3D Scene */}
+            <div className="h-[300px] sm:h-[400px] md:h-[450px] lg:h-[550px] w-full relative">
+              <Suspense fallback={null}>
+                <IceCreamModel />
+              </Suspense>
+            </div>
           </div>
         </div>
       </section>
@@ -281,52 +297,54 @@ export default function Divisions() {
       </section>
 
       {/* ══ RKV SECTION ══ */}
-      <section ref={rkvRef} className="relative min-h-screen overflow-hidden">
+      <section ref={rkvRef} className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(135deg, rgba(244,161,0,0.1) 0%, #060f1e 60%)' }} />
 
-        <Suspense fallback={null}>
-          <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden md:block">
-            <MoleculeScene color="#F4A100" />
-          </div>
-        </Suspense>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 pt-36">
-
-          <div className="max-w-lg">
-            <motion.div
-              className="inline-flex px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
-              style={{ backgroundColor: 'rgba(244,161,0,0.15)', color: '#F4A100', border: '1px solid rgba(244,161,0,0.4)' }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              Division 02
-            </motion.div>
-
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-4">RKV<br />Enterprises</h2>
-
-
-            <p ref={rkvTagline.ref} className="text-xl font-semibold mb-6 typewriter-cursor"
-              style={{ color: '#F4A100', minHeight: '1.5em' }}>
-              {rkvTagline.displayed}
-            </p>
-
-            <p className="text-base mb-10" style={{ color: '#8896A5' }}>
-              RKV Enterprises is KMK's B2B ingredient solutions arm — sourcing, 
-              blending, and distributing premium food ingredients to manufacturers 
-              across dairy, bakery, and beverage industries.
-            </p>
-
-            {/* BUG-03 FIX: Use React Router Link to avoid full page reload */}
-            <Link to="/contact">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text Info */}
+            <div className="max-w-xl">
               <motion.div
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white cursor-pointer"
-                style={{ background: 'linear-gradient(135deg, #F4A100, #c07d00)' }}
-                whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(244,161,0,0.5)' }}>
-                Source Ingredients <ArrowRight className="w-5 h-5" />
+                className="inline-flex px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
+                style={{ backgroundColor: 'rgba(244,161,0,0.15)', color: '#F4A100', border: '1px solid rgba(244,161,0,0.4)' }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                Division 02
               </motion.div>
-            </Link>
+
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4">RKV Enterprises</h2>
+
+              <p ref={rkvTagline.ref} className="text-xl font-semibold mb-6 typewriter-cursor"
+                style={{ color: '#F4A100', minHeight: '1.5em' }}>
+                {rkvTagline.displayed}
+              </p>
+
+              <p className="text-base mb-10" style={{ color: '#8896A5' }}>
+                RKV Enterprises is KMK's B2B ingredient solutions arm — sourcing, 
+                blending, and distributing premium food ingredients to manufacturers 
+                across dairy, bakery, and beverage industries.
+              </p>
+
+              {/* BUG-03 FIX: Use React Router Link to avoid full page reload */}
+              <Link to="/contact">
+                <motion.div
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white cursor-pointer"
+                  style={{ background: 'linear-gradient(135deg, #F4A100, #c07d00)' }}
+                  whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(244,161,0,0.5)' }}>
+                  Source Ingredients <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </Link>
+            </div>
+
+            {/* Right: 3D Scene */}
+            <div className="h-[300px] sm:h-[400px] md:h-[450px] lg:h-[550px] w-full relative">
+              <Suspense fallback={null}>
+                <MoleculeScene color="#F4A100" />
+              </Suspense>
+            </div>
           </div>
         </div>
       </section>

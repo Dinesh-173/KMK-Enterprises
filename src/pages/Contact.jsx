@@ -51,11 +51,12 @@ function FloatingLabelInput({ name, label, type = 'text', placeholder, register,
           setFocused(false);
         }}
         onFocus={() => setFocused(true)}
-        className={`floating-input w-full px-4 py-4 rounded-xl text-white text-sm bg-transparent outline-none transition-all duration-200 ${error ? 'has-error' : ''}`}
+        className={`floating-input w-full rounded-xl text-white text-sm bg-transparent outline-none transition-all duration-200 ${error ? 'has-error' : ''}`}
         style={{
           border: `1.5px solid ${focused ? '#00A896' : error ? '#ef4444' : 'rgba(255,255,255,0.1)'}`,
           boxShadow: focused ? '0 0 20px rgba(0,168,150,0.15)' : 'none',
           backgroundColor: 'rgba(255,255,255,0.03)',
+          padding: '1rem 1.25rem',
         }}
       />
       <label
@@ -95,9 +96,9 @@ export default function Contact() {
     <div className="bg-navy min-h-screen" style={{ backgroundColor: '#0B1F3A' }}>
 
       {/* Hero */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative" style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
+      <section className="relative min-h-[60vh] flex items-center pt-32 pb-20 md:pt-40 md:pb-28" style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
 
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
 
           <AnimatedSection>
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: '#00A896' }}>Let's Connect</p>
@@ -121,9 +122,9 @@ export default function Contact() {
                 <h2 className="text-2xl font-black text-white mb-6">Contact Information</h2>
                 <div className="space-y-5">
                   {[
-                    { icon: Mail, label: 'Email', value: 'info@kmkenterprises.in', href: 'mailto:info@kmkenterprises.in' },
+                    { icon: Mail, label: 'Email', value: 'MANIVVANNANA@GMAIL.COM', href: 'mailto:MANIVVANNANA@GMAIL.COM' },
                     { icon: Phone, label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
-                    { icon: MapPin, label: 'Address', value: '402, Pinnacle Tower, BKC, Mumbai — 400051' },
+                    { icon: MapPin, label: 'Address', value: 'Pinnacle Tower, Chennai, Tamilnadu, India' },
                     { icon: Clock, label: 'Hours', value: 'Monday – Saturday, 9:00 AM – 7:00 PM' },
                   ].map(({ icon: Icon, label, value, href }) => (
                     <div key={label} className="flex gap-4">
@@ -154,14 +155,14 @@ export default function Contact() {
                 transition={{ duration: 0.8 }}
               >
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.576611!2d72.864447!3d19.059850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9b888ae67fd%3A0x1dda313b4b0388d5!2sBandra%20Kurla%20Complex%2C%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1720118400000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15545.922904588722!2d80.2206775!3d13.0826802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x82e4b038e247de17!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1720118400000!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="KMK Enterprises Location — BKC Mumbai"
+                  title="KMK Enterprises Location — Chennai, Tamilnadu"
                 />
               </motion.div>
             </AnimatedSection>
@@ -213,7 +214,7 @@ export default function Contact() {
                 ) : (
                   <motion.form
                     key="form"
-                    className="glass rounded-2xl p-8 space-y-5"
+                    className="glass rounded-2xl p-8 flex flex-col gap-6"
                     onSubmit={handleSubmit(onSubmit)}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -238,11 +239,12 @@ export default function Contact() {
                     >
                       <select
                         {...register('industry')}
-                        className="w-full px-4 py-4 rounded-xl text-sm outline-none"
+                        className="w-full rounded-xl text-sm outline-none"
                         style={{
                           border: `1.5px solid ${errors.industry ? '#ef4444' : 'rgba(255,255,255,0.1)'}`,
                           backgroundColor: 'rgba(255,255,255,0.03)',
                           color: '#ffffff',
+                          padding: '1rem 1.25rem',
                         }}
                       >
                         <option value="" style={{ backgroundColor: '#0B1F3A' }}>Select Your Industry</option>
@@ -268,10 +270,11 @@ export default function Contact() {
                         {...register('message')}
                         placeholder="Tell us about your project, product idea, or inquiry..."
                         rows={5}
-                        className="w-full px-4 py-4 rounded-xl text-white text-sm resize-none outline-none"
+                        className="w-full rounded-xl text-white text-sm resize-none outline-none"
                         style={{
                           border: `1.5px solid ${errors.message ? '#ef4444' : 'rgba(255,255,255,0.1)'}`,
                           backgroundColor: 'rgba(255,255,255,0.03)',
+                          padding: '1rem 1.25rem',
                         }}
                       />
                       {errors.message && (

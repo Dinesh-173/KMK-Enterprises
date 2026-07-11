@@ -76,12 +76,12 @@ export default function About() {
   return (
     <div className="bg-navy min-h-screen" style={{ backgroundColor: '#0B1F3A' }}>
       {/* ══ PAGE HERO ══ */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden"
+      <section className="relative min-h-[60vh] flex items-center pt-32 pb-20 md:pt-40 md:pb-28"
 
         style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse at 30% 50%, rgba(0,168,150,0.08) 0%, transparent 60%)' }} />
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
           <AnimatedSection>
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: '#00A896' }}>Who We Are</p>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 max-w-3xl leading-tight">

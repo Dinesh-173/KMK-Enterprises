@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Globe2, Share2, Link2, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 
 const FOOTER_LINKS = {
@@ -23,12 +23,7 @@ const FOOTER_LINKS = {
   ],
 };
 
-const SOCIAL = [
-  { icon: Link2, href: '#', label: 'LinkedIn' },
-  { icon: Share2, href: '#', label: 'Twitter' },
-  { icon: Globe2, href: '#', label: 'Website' },
-  { icon: MessageSquare, href: '#', label: 'WhatsApp' },
-];
+
 
 
 export default function Footer() {
@@ -62,32 +57,14 @@ export default function Footer() {
             {/* Contact info */}
             <div className="space-y-3">
               {[
-                { icon: Mail, text: 'info@kmkenterprises.in' },
+                { icon: Mail, text: 'MANIVVANNANA@GMAIL.COM' },
                 { icon: Phone, text: '+91 98765 43210' },
-                { icon: MapPin, text: 'Mumbai, Maharashtra, India' },
+                { icon: MapPin, text: 'Chennai, Tamilnadu, India' },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-3 text-sm" style={{ color: '#8896A5' }}>
                   <Icon className="w-4 h-4 flex-shrink-0" style={{ color: '#00A896' }} />
                   {text}
                 </div>
-              ))}
-            </div>
-
-            {/* Social */}
-            <div className="flex gap-3 mt-6">
-              {SOCIAL.map(({ icon: Icon, href, label }) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center border border-white/10 transition-colors"
-                  whileHover={{ scale: 1.1, borderColor: '#00A896', color: '#00A896' }}
-                  style={{ color: '#8896A5' }}
-                >
-                  <Icon className="w-4 h-4" />
-                </motion.a>
               ))}
             </div>
           </div>

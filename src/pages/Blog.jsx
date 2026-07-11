@@ -220,9 +220,9 @@ export default function Blog() {
   return (
     <div className="bg-navy min-h-screen" style={{ backgroundColor: '#0B1F3A' }}>
       {/* Hero */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative" style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
+      <section className="relative min-h-[60vh] flex items-center pt-32 pb-20 md:pt-40 md:pb-28" style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
 
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
 
           <AnimatedSection>
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: '#00A896' }}>Knowledge Hub</p>
