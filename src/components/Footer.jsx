@@ -37,16 +37,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-xl text-white"
-                style={{ background: 'linear-gradient(135deg, #00A896, #7B2FBE)' }}>
-                K
-              </div>
-              <div>
-                <span className="text-white font-bold text-xl">KMK</span>
-                <span className="text-teal text-xs block leading-none font-medium tracking-widest"
-                  style={{ color: '#00A896' }}>ENTERPRISES</span>
-              </div>
+            <Link to="/" className="inline-block mb-6">
+              <img
+                src="/logo.png"
+                alt="KMK Enterprises Logo"
+                className="h-12 w-auto object-contain"
+              />
             </Link>
             <p className="text-slate-muted text-sm leading-relaxed mb-6 max-w-xs"
               style={{ color: '#8896A5' }}>
