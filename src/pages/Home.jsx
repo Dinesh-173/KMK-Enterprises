@@ -298,21 +298,33 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <div className="card-royal p-10 md:p-12 h-96 flex flex-col justify-between relative group">
-                <div>
-                  <span className="inline-block text-xs font-mono uppercase tracking-widest mb-4 tag-royal">
-                    Ice Cream Division
-                  </span>
-                  <h3 className="text-3xl md:text-4xl font-display font-normal text-navy mb-4" style={{ fontFamily: '"DM Serif Display", serif' }}>Sabrosa Ice Creams</h3>
-                  <p className="text-base text-text-body font-medium leading-relaxed">
-                    Artisanal ice creams including Millet-based health ranges and traditional Kulfi collections crafted for pure delight.
-                  </p>
-                </div>
-                <Link to="/divisions">
-                  <div className="flex items-center gap-2 font-mono text-sm text-royal-primary font-bold uppercase">
-                    Explore Sabrosa <ArrowRight className="w-4 h-4" />
+              <div className="card-royal overflow-hidden h-full flex flex-col justify-between group">
+                <div className="relative h-60 sm:h-64 overflow-hidden border-b border-cream-divider">
+                  <img
+                    src="/images/icecream_millet_crunch.png"
+                    alt="Sabrosa Artisanal Ice Creams"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="inline-block text-xs font-mono uppercase tracking-widest tag-royal font-bold shadow-md bg-white/90 backdrop-blur-sm">
+                      Ice Cream Division
+                    </span>
                   </div>
-                </Link>
+                </div>
+
+                <div className="p-8 md:p-10 flex flex-col justify-between flex-1">
+                  <div>
+                    <h3 className="text-3xl md:text-4xl font-display font-normal text-navy mb-4" style={{ fontFamily: '"DM Serif Display", serif' }}>Sabrosa Ice Creams</h3>
+                    <p className="text-base text-text-body font-medium leading-relaxed mb-6">
+                      Artisanal ice creams including Millet-based health ranges and traditional Kulfi collections crafted for pure delight.
+                    </p>
+                  </div>
+                  <Link to="/divisions">
+                    <div className="flex items-center gap-2 font-mono text-sm text-royal-primary font-bold uppercase group-hover:translate-x-1 transition-transform">
+                      Explore Sabrosa <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </Link>
+                </div>
               </div>
             </motion.div>
 
@@ -322,21 +334,33 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <div className="card-royal p-10 md:p-12 h-96 flex flex-col justify-between relative group" style={{ borderTop: '4px solid #1D70B8' }}>
-                <div>
-                  <span className="inline-block text-xs font-mono uppercase tracking-widest mb-4 tag-muted">
-                    Ingredients Division
-                  </span>
-                  <h3 className="text-3xl md:text-4xl font-display font-normal text-navy mb-4" style={{ fontFamily: '"DM Serif Display", serif' }}>RKV Enterprises</h3>
-                  <p className="text-base text-text-body font-medium leading-relaxed">
-                    Premium food ingredient solutions powering manufacturers across dairy, bakery, and beverage sectors.
-                  </p>
-                </div>
-                <Link to="/divisions">
-                  <div className="flex items-center gap-2 font-mono text-sm text-silver-dark font-bold uppercase">
-                    Explore RKV <ArrowRight className="w-4 h-4" />
+              <div className="card-royal overflow-hidden h-full flex flex-col justify-between group" style={{ borderTop: '4px solid #1D70B8' }}>
+                <div className="relative h-60 sm:h-64 overflow-hidden border-b border-cream-divider">
+                  <img
+                    src="/images/dairy_ingredients.png"
+                    alt="RKV Food Ingredient Solutions"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="inline-block text-xs font-mono uppercase tracking-widest tag-muted font-bold shadow-md bg-white/90 backdrop-blur-sm">
+                      Ingredients Division
+                    </span>
                   </div>
-                </Link>
+                </div>
+
+                <div className="p-8 md:p-10 flex flex-col justify-between flex-1">
+                  <div>
+                    <h3 className="text-3xl md:text-4xl font-display font-normal text-navy mb-4" style={{ fontFamily: '"DM Serif Display", serif' }}>RKV Enterprises</h3>
+                    <p className="text-base text-text-body font-medium leading-relaxed mb-6">
+                      Premium food ingredient solutions powering manufacturers across dairy, bakery, and beverage sectors.
+                    </p>
+                  </div>
+                  <Link to="/divisions">
+                    <div className="flex items-center gap-2 font-mono text-sm text-royal-primary font-bold uppercase group-hover:translate-x-1 transition-transform">
+                      Explore RKV <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </div>
