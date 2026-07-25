@@ -1,85 +1,99 @@
 import { useRef, useEffect, useMemo, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
 import * as THREE from 'three';
 
-function FloatingGeometry({ position, type, color, scale, speed, rotationOffset }) {
-  const meshRef = useRef();
+function TranslucentRoyalGlassShape({ geometry, position, speed }) {
+  const mesh = useRef();
+  const initialY = position[1];
 
   useFrame((state) => {
-    const t = state.clock.elapsedTime * speed + rotationOffset;
-    meshRef.current.rotation.x = t * 0.3;
-    meshRef.current.rotation.y = t * 0.5;
-    meshRef.current.position.y = position[1] + Math.sin(t) * 0.3;
+    const t = state.clock.elapsedTime * speed;
+    mesh.current.rotation.x = t * 0.4;
+    mesh.current.rotation.y = t * 0.6;
+    mesh.current.position.y = initialY + Math.sin(t) * 0.35;
   });
 
-  const geometry = useMemo(() => {
-    if (type === 'icosahedron') return new THREE.IcosahedronGeometry(1, 1);
-    if (type === 'torus') return new THREE.TorusGeometry(1, 0.3, 16, 50);
-    if (type === 'octahedron') return new THREE.OctahedronGeometry(1);
-    if (type === 'tetrahedron') return new THREE.TetrahedronGeometry(1);
-    return new THREE.IcosahedronGeometry(1, 0);
-  }, [type]);
-
   return (
-    <mesh ref={meshRef} position={position} scale={scale} geometry={geometry}>
-      <meshStandardMaterial
-        color={color}
-        wireframe
-        emissive={color}
-        emissiveIntensity={0.5}
+    <mesh ref={mesh} position={position} geometry={geometry}>
+      <meshPhysicalMaterial
+        color="#0B4F9C"
         transparent
-        opacity={0.7}
+        opacity={0.4}
+        roughness={0.1}
+        metalness={0.1}
+        transmission={0.75}
+        ior={1.4}
+        reflectivity={0.6}
+        thickness={1.2}
       />
     </mesh>
   );
 }
 
-function CameraRig() {
-  const { camera } = useThree();
-  const mouse = useRef({ x: 0, y: 0 });
+function RoyalDustParticles() {
+  const count = 50;
+  const mesh = useRef();
 
-  useEffect(() => {
-    const onMouseMove = (e) => {
-      mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouse.current.y = -(e.clientY / window.innerHeight - 0.5) * 2;
-    };
-    window.addEventListener('mousemove', onMouseMove);
-    return () => window.removeEventListener('mousemove', onMouseMove);
+  const [positions, speeds] = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    const spd = new Float32Array(count);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 14;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 6;
+      spd[i] = 0.003 + Math.random() * 0.004;
+    }
+    return [pos, spd];
   }, []);
 
   useFrame(() => {
-    camera.position.x += (mouse.current.x * 1.5 - camera.position.x) * 0.02;
-    camera.position.y += (mouse.current.y * 0.8 - camera.position.y) * 0.02;
-    camera.lookAt(0, 0, 0);
+    if (!mesh.current) return;
+    const array = mesh.current.geometry.attributes.position.array;
+    for (let i = 0; i < count; i++) {
+      array[i * 3 + 1] += speeds[i];
+      if (array[i * 3 + 1] > 5) {
+        array[i * 3 + 1] = -5;
+      }
+    }
+    mesh.current.geometry.attributes.position.needsUpdate = true;
   });
 
-  return null;
+  return (
+    <points ref={mesh}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.07}
+        color="#60A5FA"
+        transparent
+        opacity={0.4}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
 }
 
-const SHAPES = [
-  { type: 'icosahedron', position: [-4, 1, -2], scale: 0.8, speed: 0.3, color: '#00A896', rotationOffset: 0 },
-  { type: 'torus', position: [4, -1, -3], scale: 0.6, speed: 0.2, color: '#00c4ae', rotationOffset: 1 },
-  { type: 'octahedron', position: [-2, -2, -1], scale: 0.5, speed: 0.4, color: '#7B2FBE', rotationOffset: 2 },
-  { type: 'icosahedron', position: [3, 2, -4], scale: 1.0, speed: 0.25, color: '#00A896', rotationOffset: 3 },
-  { type: 'tetrahedron', position: [0, -3, -2], scale: 0.7, speed: 0.35, color: '#00c4ae', rotationOffset: 4 },
-  { type: 'torus', position: [-5, 0, -4], scale: 0.9, speed: 0.15, color: '#7B2FBE', rotationOffset: 5 },
-  { type: 'icosahedron', position: [5, 3, -5], scale: 0.4, speed: 0.45, color: '#00A896', rotationOffset: 6 },
-  { type: 'octahedron', position: [1, 3, -3], scale: 0.6, speed: 0.3, color: '#00c4ae', rotationOffset: 7 },
-];
-
 function Scene() {
+  const sphereGeo = useMemo(() => new THREE.SphereGeometry(1.2, 32, 32), []);
+  const icoGeo = useMemo(() => new THREE.IcosahedronGeometry(1.5, 1), []);
+  const smallSphereGeo = useMemo(() => new THREE.SphereGeometry(0.8, 32, 32), []);
+
   return (
     <>
-      <ambientLight intensity={0.2} />
-      <pointLight position={[10, 10, 10]} intensity={0.8} color="#00A896" />
-      <pointLight position={[-10, -10, -5]} intensity={0.4} color="#7B2FBE" />
+      <ambientLight intensity={1.2} color="#FFFFFF" />
+      <directionalLight position={[5, 8, 5]} intensity={1.5} color="#0B4F9C" />
+      <pointLight position={[-6, -4, -3]} intensity={0.8} color="#2563EB" />
 
-      {SHAPES.map((shape, i) => (
-        <FloatingGeometry key={i} {...shape} />
-      ))}
+      <group position={[0, 0, 0]}>
+        <TranslucentRoyalGlassShape geometry={sphereGeo} position={[-2.4, 0.8, 0]} speed={0.25} />
+        <TranslucentRoyalGlassShape geometry={icoGeo} position={[2.5, -0.6, -1]} speed={0.2} />
+        <TranslucentRoyalGlassShape geometry={smallSphereGeo} position={[0.2, 1.6, -0.5]} speed={0.3} />
+      </group>
 
-      <CameraRig />
+      <RoyalDustParticles />
+
       <AdaptiveDpr pixelated />
       <AdaptiveEvents />
     </>
@@ -87,11 +101,9 @@ function Scene() {
 }
 
 export default function HeroScene() {
-  // BUG-05 FIX: Track document.hidden reactively so frameloop prop updates dynamically
   const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
-    // BUG-19 FIX: Removed dead-code empty handler — replaced with real reactive state
     const handleVisibility = () => setIsHidden(document.hidden);
     document.addEventListener('visibilitychange', handleVisibility);
     return () => document.removeEventListener('visibilitychange', handleVisibility);
@@ -100,9 +112,8 @@ export default function HeroScene() {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 60 }}
+        camera={{ position: [0, 0, 7], fov: 50 }}
         dpr={[1, 1.5]}
-        // BUG-05 FIX: frameloop is now driven by reactive state, properly pauses on tab hide
         frameloop={isHidden ? 'never' : 'always'}
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}

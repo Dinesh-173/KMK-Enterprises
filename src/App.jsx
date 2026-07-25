@@ -19,6 +19,8 @@ const Research = lazy(() => import('./pages/Research'));
 const Divisions = lazy(() => import('./pages/Divisions'));
 const Blog = lazy(() => import('./pages/Blog'));
 const Contact = lazy(() => import('./pages/Contact'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 
 function LoadingSpinner() {
   return (
@@ -64,6 +66,8 @@ function AppInner() {
               <Route path="/divisions" element={<Divisions />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
             </Routes>
           </Suspense>
         </main>

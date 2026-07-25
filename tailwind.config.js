@@ -4,76 +4,52 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: {
-          DEFAULT: '#0B1F3A',
-          light: '#112848',
-          dark: '#060f1e',
+        base: '#FAF9F6',
+        soft: '#F4F1EA',
+        muted: '#EAE5D9',
+        panel: '#FFFFFF',
+        navy: '#0A192F',
+        royal: {
+          primary: '#0B4F9C',
+          mid: '#1D70B8',
+          bright: '#2563EB',
+          light: '#60A5FA',
+          subtle: '#E0F2FE',
         },
-        teal: {
-          DEFAULT: '#00A896',
-          light: '#00c4ae',
-          dark: '#007a6e',
+        silver: {
+          dark: '#475569',
+          mid: '#64748B',
+          bright: '#94A3B8',
         },
-        purple: {
-          brand: '#7B2FBE',
-          light: '#9B4FDE',
-          dark: '#5a1f8e',
-        },
-        amber: {
-          brand: '#F4A100',
-          light: '#FFB830',
-          dark: '#c07d00',
-        },
-        slate: {
-          muted: '#8896A5',
+        text: {
+          heading: '#0A192F',
+          body: '#334155',
+          muted: '#64748B',
+          royal: '#0B4F9C',
         },
       },
       fontFamily: {
-        jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
+        display: ['"DM Serif Display"', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+        mono: ['"DM Mono"', 'monospace'],
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      boxShadow: {
+        card: '0 4px 24px rgba(11,79,156,0.08)',
+        'card-hover': '0 16px 48px rgba(11,79,156,0.18)',
+        royal: '0 0 40px rgba(11,79,156,0.3)',
+        btn: '0 4px 20px rgba(11,79,156,0.35)',
+      },
+      borderRadius: {
+        'card': '1.25rem', // 20px
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
-        'pulse-ring': 'pulseRing 2s ease-out infinite',
-        'spin-slow': 'spin 20s linear infinite',
-        'shimmer': 'shimmer 2s infinite',
-        'gradient-shift': 'gradientShift 8s ease infinite',
-        'bounce-subtle': 'bounceSutble 2s ease-in-out infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+          '50%': { transform: 'translateY(-10px)' },
         },
-        pulseRing: {
-          '0%': { transform: 'scale(0.9)', opacity: '1' },
-          '100%': { transform: 'scale(1.8)', opacity: '0' },
-        },
-        shimmer: {
-          '0%': { backgroundPosition: '-200% 0' },
-          '100%': { backgroundPosition: '200% 0' },
-        },
-        gradientShift: {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-        },
-        bounceSutble: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(8px)' },
-        },
-      },
-      backdropBlur: {
-        xs: '2px',
-      },
-      boxShadow: {
-        'teal-glow': '0 0 30px rgba(0, 168, 150, 0.4)',
-        'teal-glow-lg': '0 0 60px rgba(0, 168, 150, 0.5)',
-        'purple-glow': '0 0 30px rgba(123, 47, 190, 0.4)',
-        'amber-glow': '0 0 30px rgba(244, 161, 0, 0.4)',
-        'glass': '0 8px 32px rgba(0, 0, 0, 0.3)',
       },
       screens: {
         'xs': '480px',

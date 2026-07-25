@@ -10,51 +10,50 @@ const PAGE_NAMES = {
   '/divisions': 'Divisions',
   '/blog': 'Insights',
   '/contact': 'Contact',
+  '/privacy-policy': 'Privacy Policy',
+  '/terms-of-service': 'Terms of Service',
 };
 
-// BUG-08 FIX: Separate the curtain (portal-level, keyed to pathname) from the
-// page content wrapper. The curtain animates as a portal overlay independently,
-// while the content fades in after the curtain completes its sweep.
 export default function PageTransition({ children }) {
   const location = useLocation();
   const pageName = PAGE_NAMES[location.pathname] || '';
 
   return (
     <>
-      {/* ── Curtain overlay: keyed so it re-mounts on every route change ── */}
+      {/* Soft cream panel sweep left -> right */}
       <AnimatePresence mode="wait">
         <motion.div
           key={`curtain-${location.pathname}`}
           className="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-none"
-          style={{ backgroundColor: '#060f1e' }}
+          style={{ backgroundColor: '#F4F1EA', borderRight: '2px solid #0B4F9C' }}
           initial={{ scaleX: 0, transformOrigin: 'left' }}
           animate={{ scaleX: [0, 1, 1, 0] }}
           transition={{
-            duration: 0.8,
-            times: [0, 0.4, 0.6, 1],
-            ease: [0.77, 0, 0.18, 1],
+            duration: 0.55,
+            times: [0, 0.45, 0.55, 1],
+            ease: [0.16, 1, 0.3, 1],
           }}
         >
           <motion.span
-            className="text-white text-5xl font-bold tracking-widest uppercase"
-            style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', letterSpacing: '0.2em' }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 0.8, times: [0, 0.3, 0.7, 1] }}
+            className="text-4xl md:text-6xl font-display font-normal tracking-tight"
+            style={{ fontFamily: '"DM Serif Display", serif', color: '#0B4F9C' }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: [0, 1, 1, 0], y: [10, 0, 0, -10] }}
+            transition={{ duration: 0.55, times: [0, 0.3, 0.7, 1] }}
           >
             {pageName}
           </motion.span>
         </motion.div>
       </AnimatePresence>
 
-      {/* ── Page content: fades in after curtain clears ── */}
+      {/* Page content fades in */}
       <AnimatePresence mode="wait">
         <motion.div
           key={`page-${location.pathname}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, delay: 0.5 }}
+          transition={{ duration: 0.3, delay: 0.3, ease: 'easeOut' }}
         >
           {children}
         </motion.div>

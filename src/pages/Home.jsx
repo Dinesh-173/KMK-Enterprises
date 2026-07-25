@@ -1,15 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Beaker, ShieldCheck, Lightbulb, Rocket, Leaf } from 'lucide-react';
-import { Suspense, lazy } from 'react';
-import AnimatedSection, { staggerContainer, slideUp, slideLeft, slideRight } from '../components/AnimatedSection';
+import AnimatedSection, { staggerContainer, slideUp } from '../components/AnimatedSection';
 import GlassCard from '../components/GlassCard';
 import { useCountUp } from '../hooks/useCountUp';
 
 const HeroScene = lazy(() => import('../three/HeroScene'));
 
-// Text Scramble Hook
 function useTextScramble(finalText, trigger = true) {
   const [text, setText] = useState('');
   const CHARS = '!<>-_\\/[]{}—=+*^?#ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -17,7 +15,6 @@ function useTextScramble(finalText, trigger = true) {
   useEffect(() => {
     if (!trigger) return;
     let frame = 0;
-    // BUG-18 FIX: Track RAF ID so we can cancel on cleanup (prevents setState on unmounted component)
     let rafId;
     let queue = finalText.split('').map((char, i) => ({
       from: char === ' ' ? ' ' : CHARS[Math.floor(Math.random() * CHARS.length)],
@@ -48,34 +45,29 @@ function useTextScramble(finalText, trigger = true) {
     };
 
     rafId = requestAnimationFrame(update);
-
-    // BUG-18 FIX: Cancel the RAF loop on cleanup
     return () => cancelAnimationFrame(rafId);
   }, [finalText, trigger]);
 
   return text;
 }
 
-
-// Stat card
-function StatCard({ value, suffix, label, progress }) {
-  const { count, ref } = useCountUp(value, 2200);
+function StatCard({ value, suffix, label }) {
+  const { count, ref } = useCountUp(value, 2000);
 
   return (
-    <div ref={ref} className="text-center">
-      <div className="text-5xl lg:text-6xl font-black text-white mb-2">
-        <span className="gradient-text-teal">{count}</span>
-        <span className="text-teal" style={{ color: '#00A896' }}>{suffix}</span>
+    <div ref={ref} className="bg-white p-8 md:p-10 rounded-2xl border border-cream-divider shadow-card text-center">
+      <div className="text-5xl lg:text-7xl font-display font-normal text-navy mb-2" style={{ fontFamily: '"DM Serif Display", serif' }}>
+        <span>{count}</span>
+        <span className="text-royal-primary">{suffix}</span>
       </div>
-      <div className="text-sm font-medium mb-3" style={{ color: '#8896A5' }}>{label}</div>
-      <div className="h-0.5 w-24 mx-auto rounded-full bg-white/10 overflow-hidden">
+      <div className="text-sm font-mono uppercase tracking-widest text-royal-primary font-bold mb-4">{label}</div>
+      <div className="h-1.5 w-24 mx-auto rounded-full bg-soft overflow-hidden">
         <motion.div
-          className="h-full rounded-full"
-          style={{ background: 'linear-gradient(90deg, #00A896, #7B2FBE)' }}
+          className="h-full rounded-full bg-royal-primary"
           initial={{ width: 0 }}
-          whileInView={{ width: `${progress}%` }}
+          whileInView={{ width: '100%' }}
           viewport={{ once: true }}
-          transition={{ duration: 2, ease: 'easeOut', delay: 0.3 }}
+          transition={{ duration: 1.2, ease: 'easeOut', delay: 0.2 }}
         />
       </div>
     </div>
@@ -83,36 +75,11 @@ function StatCard({ value, suffix, label, progress }) {
 }
 
 const SERVICES = [
-  {
-    icon: Beaker,
-    title: 'Product Development',
-    desc: 'From concept to shelf — we engineer breakthrough food products with precision formulation.',
-    color: '#00A896',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Regulatory & Quality',
-    desc: 'Navigate complex compliance landscapes with our expert regulatory and quality systems.',
-    color: '#7B2FBE',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Food Tech Consulting',
-    desc: 'Strategic advisory that unlocks hidden value across your food technology value chain.',
-    color: '#F4A100',
-  },
-  {
-    icon: Rocket,
-    title: 'R&D Innovation',
-    desc: 'Cutting-edge research translating consumer insights into market-ready innovations.',
-    color: '#00A896',
-  },
-  {
-    icon: Leaf,
-    title: 'Startup Incubation',
-    desc: 'Mentoring food-tech entrepreneurs from idea-stage to successful market launch.',
-    color: '#7B2FBE',
-  },
+  { icon: Beaker, title: 'Product Development', desc: 'From concept to shelf — we engineer breakthrough food products with precision formulation.' },
+  { icon: ShieldCheck, title: 'Regulatory & Quality', desc: 'Navigate complex compliance landscapes with our expert regulatory and quality systems.' },
+  { icon: Lightbulb, title: 'Food Tech Consulting', desc: 'Strategic advisory that unlocks hidden value across your food technology value chain.' },
+  { icon: Rocket, title: 'R&D Innovation', desc: 'Cutting-edge research translating consumer insights into market-ready innovations.' },
+  { icon: Leaf, title: 'Startup Incubation', desc: 'Mentoring food-tech entrepreneurs from idea-stage to successful market launch.' },
 ];
 
 export default function Home() {
@@ -120,86 +87,65 @@ export default function Home() {
   const heroTitle = useTextScramble('Pioneering the Future of Food Technology', scrambleTrigger);
 
   useEffect(() => {
-    const t = setTimeout(() => setScrambleTrigger(true), 400);
+    const t = setTimeout(() => setScrambleTrigger(true), 300);
     return () => clearTimeout(t);
   }, []);
 
   return (
-    <div className="bg-navy min-h-screen" style={{ backgroundColor: '#0B1F3A' }}>
-      {/* ══════════════════════════════════════════
-          HERO SECTION
-          ══════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Three.js Background */}
+    <div className="bg-base min-h-screen grain-overlay bg-pattern-overlay">
+      {/* 1. HERO SECTION */}
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-base border-b border-cream-divider page-hero-pt">
         <Suspense fallback={null}>
           <HeroScene />
         </Suspense>
 
-        {/* Radial gradient overlay */}
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse at center, rgba(11,31,58,0.3) 0%, rgba(11,31,58,0.85) 70%)' }} />
-
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-          style={{ background: 'linear-gradient(to top, #0B1F3A, transparent)' }} />
-
-        {/* Hero content */}
-        <div className="relative z-10 text-center max-w-5xl mx-auto px-6">
+        <div className="relative z-10 text-center max-w-6xl mx-auto px-6 py-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-widest uppercase mb-8"
-            style={{
-              background: 'rgba(0, 168, 150, 0.12)',
-              border: '1px solid rgba(0, 168, 150, 0.3)',
-              color: '#00A896',
-            }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs md:text-sm font-mono tracking-widest uppercase mb-8 tag-royal"
           >
-            <span className="w-2 h-2 rounded-full bg-teal animate-pulse" style={{ backgroundColor: '#00A896' }} />
-            Premium Food Technology Company
+            <span className="w-2.5 h-2.5 rounded-full bg-royal-primary animate-pulse" />
+            KMK Enterprises — Royal Blue Precision Food Tech
           </motion.div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
+          <h1
+            className="text-5xl md:text-7xl lg:text-8xl font-display font-normal text-navy mb-8 leading-[1.08]"
+            style={{ fontFamily: '"DM Serif Display", serif' }}
+          >
             {heroTitle || 'Pioneering the Future of Food Technology'}
           </h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.7 }}
-            className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-            style={{ color: '#8896A5' }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed text-text-body font-medium"
           >
             KMK Enterprises transforms bold food ideas into world-class products. 
-            From R&D to retail, we power innovation across 12+ industries.
+            From formulation R&D to retail, we power innovation across 12+ industries.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            transition={{ delay: 0.8, duration: 0.5 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-5"
           >
-            {/* Primary CTA */}
             <Link to="/services">
               <motion.button
-                className="btn-glow-teal px-8 py-4 rounded-xl font-bold text-white text-base flex items-center gap-2"
-                style={{ background: 'linear-gradient(135deg, #00A896, #007a6e)' }}
-                whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(0,168,150,0.6)' }}
+                className="btn-primary-royal text-base"
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
-                Explore Services
-                <ArrowRight className="w-5 h-5" />
+                Explore Services <ArrowRight className="w-5 h-5 ml-1" />
               </motion.button>
             </Link>
 
-            {/* Ghost CTA */}
             <Link to="/about">
               <motion.button
-                className="border-animated px-8 py-4 rounded-xl font-bold text-white text-base"
-                style={{ border: '1.5px solid rgba(0,168,150,0.4)' }}
-                whileHover={{ borderColor: '#00A896', color: '#00A896' }}
+                className="btn-ghost-royal text-base"
                 whileTap={{ scale: 0.97 }}
               >
                 Our Story
@@ -208,257 +154,214 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 0.5 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          animate={{ y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
         >
-          <span className="text-xs tracking-widest uppercase" style={{ color: '#8896A5' }}>Scroll</span>
-          <ChevronDown className="w-5 h-5 scroll-indicator" style={{ color: '#00A896' }} />
+          <span className="text-xs font-mono tracking-widest uppercase text-silver-dark font-bold">Scroll</span>
+          <ChevronDown className="w-4 h-4 text-royal-primary" />
         </motion.div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          COMPANY STATS
-          ══════════════════════════════════════════ */}
-      <section className="section-padding relative overflow-hidden" style={{ backgroundColor: '#060f1e' }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <AnimatedSection>
-            <div className="text-center mb-16">
-              <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: '#00A896' }}>By the Numbers</p>
-              <h2 className="text-3xl md:text-4xl font-black text-white">Trusted by Industry Leaders</h2>
-            </div>
-          </AnimatedSection>
+      {/* 2. COMPANY SHOWCASE & STATS */}
+      <section className="section-padding-royal bg-soft/80 border-b border-cream-divider">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+            <AnimatedSection>
+              <div className="relative rounded-2xl overflow-hidden shadow-card border border-slate-200 group">
+                <img
+                  src="/images/rd_laboratory.png"
+                  alt="KMK Food Science Lab"
+                  className="w-full h-[380px] md:h-[450px] object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/20 to-transparent flex items-end p-8">
+                  <div>
+                    <span className="bg-royal-primary text-white text-xs font-mono px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-2 inline-block shadow-sm">
+                      State-of-the-Art R&D Center
+                    </span>
+                    <h3 className="text-2xl md:text-3xl font-display font-normal text-white" style={{ fontFamily: '"DM Serif Display", serif' }}>
+                      Pioneering Food Technology & Research
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection>
+              <div>
+                <span className="text-xs font-mono uppercase tracking-widest tag-royal inline-block mb-4">
+                  Why Choose KMK
+                </span>
+                <h2 className="text-4xl md:text-5xl font-display font-normal text-navy mb-6" style={{ fontFamily: '"DM Serif Display", serif' }}>
+                  Trusted by 100+ Food Brands Nationwide
+                </h2>
+                <p className="text-base md:text-lg text-text-body leading-relaxed mb-6 font-medium">
+                  We bridge the gap between laboratory science and commercial product success. With 20+ years of domain expertise, KMK Enterprises equips businesses with robust formulations, regulatory safety, and high-efficiency production processes.
+                </p>
+                <Link to="/about">
+                  <span className="btn-secondary-royal text-sm font-bold">
+                    Learn About Our Approach <ArrowRight className="w-4 h-4" />
+                  </span>
+                </Link>
+              </div>
+            </AnimatedSection>
+          </div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-12"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={staggerContainer}
           >
             <motion.div variants={slideUp}>
-              <StatCard value={20} suffix="+" label="Years of Expertise" progress={80} />
+              <StatCard value={20} suffix="+" label="Years of Expertise" />
             </motion.div>
             <motion.div variants={slideUp}>
-              <StatCard value={500} suffix="+" label="Products Developed" progress={95} />
+              <StatCard value={500} suffix="+" label="Products Developed" />
             </motion.div>
             <motion.div variants={slideUp}>
-              <StatCard value={12} suffix="+" label="Industries Served" progress={70} />
+              <StatCard value={12} suffix="+" label="Industries Served" />
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          CORE SERVICES
-          ══════════════════════════════════════════ */}
-      <section className="section-padding relative">
-        <div className="dot-matrix-bg absolute inset-0 opacity-30 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+      {/* 3. CORE SERVICES */}
+      <section className="section-padding-royal bg-base border-b border-cream-divider">
+        <div className="max-w-7xl mx-auto px-6">
           <AnimatedSection>
             <div className="text-center mb-16">
-              <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: '#00A896' }}>What We Do</p>
-              <h2 className="text-3xl md:text-5xl font-black text-white mb-4">Core Services</h2>
-              <p className="text-base max-w-xl mx-auto" style={{ color: '#8896A5' }}>
-                End-to-end food technology expertise that takes your product from concept to market.
+              <span className="text-xs font-mono tracking-widest uppercase text-royal-primary tag-royal">What We Do</span>
+              <h2 className="text-4xl md:text-6xl font-display font-normal text-navy mt-3 mb-4" style={{ fontFamily: '"DM Serif Display", serif' }}>
+                Core Services
+              </h2>
+              <p className="text-lg md:text-xl max-w-2xl mx-auto text-text-body font-medium">
+                End-to-end food technology expertise that takes your product from concept to market dominance.
               </p>
             </div>
           </AnimatedSection>
 
           <motion.div
-            className="flex flex-wrap justify-center gap-6"
+            className="flex flex-wrap justify-center gap-8"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
             variants={staggerContainer}
           >
-            {SERVICES.map((service, i) => (
+            {SERVICES.map((service) => (
               <motion.div
                 key={service.title}
                 variants={slideUp}
-                className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+                className="w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)]"
               >
-                <GlassCard
-                  className="p-8 h-full group"
-                  glowColor={`${service.color}40`}
-                >
+                <GlassCard className="p-8 md:p-10 h-full">
                   <div className="flex flex-col h-full">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
-                      style={{ backgroundColor: `${service.color}20`, border: `1px solid ${service.color}40` }}
-                    >
-                      <service.icon className="w-6 h-6" style={{ color: service.color }} />
+                    <div className="w-14 h-14 rounded-full icon-circle-royal mb-6 text-royal-primary">
+                      <service.icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-3">{service.title}</h3>
-                    <p className="text-sm leading-relaxed flex-1" style={{ color: '#8896A5' }}>{service.desc}</p>
+                    <h3 className="text-2xl font-bold text-navy mb-3">{service.title}</h3>
+                    <p className="text-base leading-relaxed text-text-body font-medium flex-1">{service.desc}</p>
                   </div>
                 </GlassCard>
               </motion.div>
             ))}
           </motion.div>
 
-
-
-
-          <AnimatedSection className="text-center mt-12">
+          <AnimatedSection className="text-center mt-14">
             <Link to="/services">
-              <motion.button
-                className="px-8 py-4 rounded-xl font-bold text-sm border"
-                style={{ borderColor: 'rgba(0,168,150,0.3)', color: '#00A896' }}
-                whileHover={{ backgroundColor: 'rgba(0,168,150,0.1)', borderColor: '#00A896' }}
-              >
-                View All Services
+              <motion.button className="btn-secondary-royal text-base">
+                View All Services <ArrowRight className="w-5 h-5 ml-1" />
               </motion.button>
             </Link>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          BUSINESS DIVISIONS
-          ══════════════════════════════════════════ */}
-      <section className="section-padding relative" style={{ backgroundColor: '#060f1e' }}>
+      {/* 4. BUSINESS DIVISIONS */}
+      <section className="section-padding-royal bg-soft/80 border-b border-cream-divider">
         <div className="max-w-7xl mx-auto px-6">
           <AnimatedSection>
             <div className="text-center mb-16">
-              <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: '#F4A100' }}>Our Portfolio</p>
-              <h2 className="text-3xl md:text-5xl font-black text-white mb-4">Business Divisions</h2>
+              <span className="text-xs font-mono tracking-widest uppercase text-royal-primary tag-royal">Our Portfolio</span>
+              <h2 className="text-4xl md:text-6xl font-display font-normal text-navy mt-3" style={{ fontFamily: '"DM Serif Display", serif' }}>
+                Business Divisions
+              </h2>
             </div>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Sabrosa Card */}
             <motion.div
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
             >
-              <GlassCard
-                className="p-10 h-80 flex flex-col justify-between cursor-pointer overflow-hidden relative group"
-                glowColor="rgba(123,47,190,0.4)"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(123,47,190,0.15) 0%, rgba(11,31,58,0.8) 100%)',
-                  border: '1px solid rgba(123,47,190,0.3)',
-                }}
-              >
-                <div className="absolute top-0 right-0 w-48 h-48 rounded-full pointer-events-none"
-                  style={{ background: 'radial-gradient(circle, rgba(123,47,190,0.2) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }} />
+              <div className="card-royal p-10 md:p-12 h-96 flex flex-col justify-between relative group">
                 <div>
-                  <div className="inline-flex px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
-                    style={{ backgroundColor: 'rgba(123,47,190,0.2)', color: '#9B4FDE', border: '1px solid rgba(123,47,190,0.3)' }}>
+                  <span className="inline-block text-xs font-mono uppercase tracking-widest mb-4 tag-royal">
                     Ice Cream Division
-                  </div>
-                  <h3 className="text-3xl font-black text-white mb-3">Sabrosa<br />Ice Creams</h3>
-                  <p className="text-sm" style={{ color: '#8896A5' }}>
-                    Premium artisanal ice creams including Millet-based health ranges and traditional Kulfi collections.
+                  </span>
+                  <h3 className="text-3xl md:text-4xl font-display font-normal text-navy mb-4" style={{ fontFamily: '"DM Serif Display", serif' }}>Sabrosa Ice Creams</h3>
+                  <p className="text-base text-text-body font-medium leading-relaxed">
+                    Artisanal ice creams including Millet-based health ranges and traditional Kulfi collections crafted for pure delight.
                   </p>
                 </div>
                 <Link to="/divisions">
-                  <motion.div
-                    className="flex items-center gap-2 font-bold text-sm group-hover:gap-4 transition-all"
-                    style={{ color: '#9B4FDE' }}
-                  >
+                  <div className="flex items-center gap-2 font-mono text-sm text-royal-primary font-bold uppercase">
                     Explore Sabrosa <ArrowRight className="w-4 h-4" />
-                  </motion.div>
+                  </div>
                 </Link>
-              </GlassCard>
+              </div>
             </motion.div>
 
             {/* RKV Card */}
             <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
             >
-              <GlassCard
-                className="p-10 h-80 flex flex-col justify-between cursor-pointer overflow-hidden relative group"
-                glowColor="rgba(244,161,0,0.4)"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(244,161,0,0.12) 0%, rgba(11,31,58,0.8) 100%)',
-                  border: '1px solid rgba(244,161,0,0.3)',
-                }}
-              >
-                <div className="absolute top-0 right-0 w-48 h-48 rounded-full pointer-events-none"
-                  style={{ background: 'radial-gradient(circle, rgba(244,161,0,0.15) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }} />
+              <div className="card-royal p-10 md:p-12 h-96 flex flex-col justify-between relative group" style={{ borderTop: '4px solid #1D70B8' }}>
                 <div>
-                  <div className="inline-flex px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
-                    style={{ backgroundColor: 'rgba(244,161,0,0.15)', color: '#F4A100', border: '1px solid rgba(244,161,0,0.3)' }}>
+                  <span className="inline-block text-xs font-mono uppercase tracking-widest mb-4 tag-muted">
                     Ingredients Division
-                  </div>
-                  <h3 className="text-3xl font-black text-white mb-3">RKV<br />Enterprises</h3>
-                  <p className="text-sm" style={{ color: '#8896A5' }}>
+                  </span>
+                  <h3 className="text-3xl md:text-4xl font-display font-normal text-navy mb-4" style={{ fontFamily: '"DM Serif Display", serif' }}>RKV Enterprises</h3>
+                  <p className="text-base text-text-body font-medium leading-relaxed">
                     Premium food ingredient solutions powering manufacturers across dairy, bakery, and beverage sectors.
                   </p>
                 </div>
                 <Link to="/divisions">
-                  <motion.div
-                    className="flex items-center gap-2 font-bold text-sm group-hover:gap-4 transition-all"
-                    style={{ color: '#F4A100' }}
-                  >
+                  <div className="flex items-center gap-2 font-mono text-sm text-silver-dark font-bold uppercase">
                     Explore RKV <ArrowRight className="w-4 h-4" />
-                  </motion.div>
+                  </div>
                 </Link>
-              </GlassCard>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          CTA STRIP
-          ══════════════════════════════════════════ */}
-      <section className="py-32 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0B1F3A 0%, #071520 50%, #0B1F3A 100%)' }}>
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(0,168,150,0.08) 0%, transparent 70%)' }} />
-
+      {/* 5. CTA STRIP */}
+      <section className="py-28 relative overflow-hidden bg-navy text-base border-t border-slate-800">
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.08 } },
-            }}
-          >
-            {['Ready', 'to', 'Build', 'Something', 'Extraordinary?'].map((word, i) => (
-              <motion.span
-                key={i}
-                className="inline-block text-4xl md:text-6xl lg:text-7xl font-black text-white mr-4 mb-2"
-                variants={{
-                  hidden: { opacity: 0, y: 40 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-                }}
-              >
-                {word}
-              </motion.span>
-            ))}
-          </motion.div>
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-normal mb-6 text-white" style={{ fontFamily: '"DM Serif Display", serif' }}>
+            Ready to Build Something Extraordinary?
+          </h2>
+          <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto font-medium">
+            Let's create your next breakthrough food product together with KMK Enterprises.
+          </p>
 
-          <AnimatedSection delay={0.3}>
-            <p className="text-lg mt-6 mb-10" style={{ color: '#8896A5' }}>
-              Let's build your next breakthrough food product together.
-            </p>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.5}>
-            <Link to="/contact">
-              <motion.button
-                className="btn-ripple-amber px-10 py-5 rounded-xl font-black text-white text-lg"
-                style={{ background: 'linear-gradient(135deg, #F4A100, #c07d00)' }}
-                whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(244,161,0,0.5)' }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Start a Project
-              </motion.button>
-            </Link>
-          </AnimatedSection>
+          <Link to="/contact">
+            <motion.button
+              className="btn-primary-royal text-base font-bold px-10 py-4"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Start a Project <ArrowRight className="w-5 h-5 ml-1" />
+            </motion.button>
+          </Link>
         </div>
       </section>
     </div>

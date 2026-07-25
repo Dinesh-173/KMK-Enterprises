@@ -1,11 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import AnimatedSection from '../components/AnimatedSection';
-// BUG-14 FIX: Removed unused 'CheckCircle' import
-import { Mail, Phone, MapPin, Clock, Send, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, AlertCircle, Check } from 'lucide-react';
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -28,48 +27,34 @@ const INDUSTRIES = [
   'Confectionery', 'Bakery', 'FMCG', 'Nutritional', 'Startup', 'Other'
 ];
 
-// BUG-07 FIX: FloatingLabelInput correctly threads RHF's onChange alongside local state setter
-function FloatingLabelInput({ name, label, type = 'text', placeholder, register, error, delay = 0 }) {
-  const [focused, setFocused] = useState(false);
-  const { onChange: rhfOnChange, onBlur: rhfOnBlur, ref, name: fieldName } = register(name);
+function FloatingInputField({ name, label, type = 'text', placeholder, register, error, delay = 0 }) {
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
     <motion.div
-      className={`relative ${error ? 'shake' : ''}`}
-      initial={{ opacity: 0, y: 30 }}
+      className="relative"
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
+      transition={{ duration: 0.4, delay }}
     >
-      <input
-        type={type}
-        name={fieldName}
-        ref={ref}
-        placeholder={focused ? placeholder : ' '}
-        onChange={rhfOnChange}
-        onBlur={async (e) => {
-          await rhfOnBlur(e);
-          setFocused(false);
-        }}
-        onFocus={() => setFocused(true)}
-        className={`floating-input w-full rounded-xl text-white text-sm bg-transparent outline-none transition-all duration-200 ${error ? 'has-error' : ''}`}
-        style={{
-          border: `1.5px solid ${focused ? '#00A896' : error ? '#ef4444' : 'rgba(255,255,255,0.1)'}`,
-          boxShadow: focused ? '0 0 20px rgba(0,168,150,0.15)' : 'none',
-          backgroundColor: 'rgba(255,255,255,0.03)',
-          padding: '1rem 1.25rem',
-        }}
-      />
       <label
-        className="floating-label font-medium"
-        style={{
-          color: focused ? '#00A896' : error ? '#ef4444' : '#8896A5',
-        }}
+        className={`block text-xs md:text-sm font-mono uppercase tracking-widest mb-2 transition-colors font-bold ${
+          isFocused ? 'text-royal-primary' : 'text-silver-dark'
+        }`}
       >
         {label}
       </label>
+      <input
+        type={type}
+        {...register(name)}
+        placeholder={placeholder}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        className="input-royal w-full"
+      />
       {error && (
-        <p className="flex items-center gap-1.5 text-xs mt-1.5" style={{ color: '#ef4444' }}>
-          <AlertCircle className="w-3 h-3" /> {error.message}
+        <p className="flex items-center gap-1.5 text-xs text-red-500 mt-1.5 font-bold">
+          <AlertCircle className="w-3.5 h-3.5" /> {error.message}
         </p>
       )}
     </motion.div>
@@ -84,260 +69,202 @@ export default function Contact() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 2000));
+    await new Promise((r) => setTimeout(r, 1200));
     setLoading(false);
     setSubmitted(true);
     reset();
   };
 
   return (
-    <div className="bg-navy min-h-screen" style={{ backgroundColor: '#0B1F3A' }}>
-
-      {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center pt-32 pb-20 md:pt-40 md:pb-28" style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
-
+    <div className="bg-base min-h-screen grain-overlay">
+      {/* Hero Header */}
+      <section className="relative min-h-[40vh] flex items-center page-hero-pt pb-16 md:pb-20 bg-base border-b border-cream-divider">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
           <AnimatedSection>
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: '#00A896' }}>Let's Connect</p>
-            <h1 className="text-4xl md:text-6xl font-black text-white mb-6">
-              Get in <span className="gradient-text-teal">Touch</span>
+            <span className="text-xs md:text-sm font-mono tracking-widest uppercase mb-4 inline-block tag-royal">
+              Let's Connect
+            </span>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-normal text-navy mb-6" style={{ fontFamily: '"DM Serif Display", serif' }}>
+              Get in Touch
             </h1>
-            <p className="text-lg max-w-2xl" style={{ color: '#8896A5' }}>
+            <p className="text-lg md:text-2xl max-w-3xl text-text-body font-medium leading-relaxed">
               Ready to start your food innovation journey? Our team responds within 24 hours.
             </p>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* Split Layout */}
-      <section className="section-padding">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Left: Contact Info + Map */}
-            <AnimatedSection className="space-y-8">
-              <div className="glass rounded-2xl p-8">
-                <h2 className="text-2xl font-black text-white mb-6">Contact Information</h2>
-                <div className="space-y-5">
-                  {[
-                    { icon: Mail, label: 'Email', value: 'MANIVVANNANA@GMAIL.COM', href: 'mailto:MANIVVANNANA@GMAIL.COM' },
-                    { icon: Phone, label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
-                    { icon: MapPin, label: 'Address', value: 'Pinnacle Tower, Chennai, Tamilnadu, India' },
-                    { icon: Clock, label: 'Hours', value: 'Monday – Saturday, 9:00 AM – 7:00 PM' },
-                  ].map(({ icon: Icon, label, value, href }) => (
-                    <div key={label} className="flex gap-4">
-                      <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                        style={{ backgroundColor: 'rgba(0,168,150,0.15)', border: '1px solid rgba(0,168,150,0.25)' }}>
-                        <Icon className="w-5 h-5" style={{ color: '#00A896' }} />
+      {/* Split Layout — Left Dark Navy #0A192F / Right Warm Base #FAF9F6 */}
+      <section className="bg-base">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Left Panel */}
+            <div className="p-8 md:p-16 bg-navy text-white space-y-8 flex flex-col justify-between" style={{ backgroundColor: '#0A192F' }}>
+              <AnimatedSection className="space-y-8">
+                <div>
+                  <h2 className="text-3xl md:text-4xl font-display font-normal text-white mb-6" style={{ fontFamily: '"DM Serif Display", serif' }}>
+                    Contact Information
+                  </h2>
+                  <div className="space-y-6">
+                    {[
+                      { icon: Mail, label: 'Email', value: 'kmkenterprises@gmail.com', href: 'mailto:kmkenterprises@gmail.com' },
+                      { icon: Phone, label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
+                      { icon: MapPin, label: 'Address', value: 'Chennai, Tamil Nadu, India' },
+                      { icon: Clock, label: 'Hours', value: 'Monday – Saturday, 9:00 AM – 7:00 PM' },
+                    ].map(({ icon: Icon, label, value, href }) => (
+                      <div key={label} className="flex gap-4">
+                        <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-slate-800 border border-slate-700 text-royal-light">
+                          <Icon className="w-5 h-5 text-royal-light" style={{ color: '#60A5FA' }} />
+                        </div>
+                        <div>
+                          <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1 font-bold">{label}</p>
+                          {href ? (
+                            <a href={href} className="text-base md:text-lg font-bold text-white hover:text-royal-light transition-colors">{value}</a>
+                          ) : (
+                            <p className="text-base md:text-lg font-bold text-white">{value}</p>
+                          )}
+                        </div>
                       </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-2xl overflow-hidden h-60 border border-slate-800 shadow-xl">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15545.922904588722!2d80.2206775!3d13.0826802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x82e4b038e247de17!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1720118400000!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    title="KMK Location Map"
+                  />
+                </div>
+              </AnimatedSection>
+            </div>
+
+            {/* Right Panel */}
+            <div className="p-8 md:p-16 bg-base flex items-center">
+              <div className="w-full max-w-xl mx-auto">
+                <AnimatePresence mode="wait">
+                  {submitted ? (
+                    <motion.div
+                      key="success"
+                      className="bg-white rounded-2xl p-12 flex flex-col items-center justify-center text-center border border-cream-divider shadow-card border-t-4 border-t-royal-primary"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                    >
+                      <div className="w-18 h-18 rounded-full bg-royal-subtle border border-royal-light flex items-center justify-center mb-6 text-royal-primary">
+                        <Check className="w-9 h-9 text-royal-primary" />
+                      </div>
+                      <h3 className="text-3xl font-display font-normal text-navy mb-3" style={{ fontFamily: '"DM Serif Display", serif' }}>Message Sent!</h3>
+                      <p className="text-base text-text-body font-medium max-w-sm mb-8">
+                        Thank you for reaching out. Our team will respond within 24 hours.
+                      </p>
+                      <button
+                        className="btn-primary-royal text-xs font-mono uppercase tracking-wider font-bold"
+                        onClick={() => setSubmitted(false)}
+                      >
+                        Send Another Message
+                      </button>
+                    </motion.div>
+                  ) : (
+                    <motion.form
+                      key="form"
+                      className="bg-white rounded-2xl p-8 md:p-10 border border-cream-divider shadow-card border-t-4 border-t-royal-primary flex flex-col gap-6"
+                      onSubmit={handleSubmit(onSubmit)}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
+                      <h2 className="text-3xl font-display font-normal text-navy mb-2" style={{ fontFamily: '"DM Serif Display", serif' }}>Send Us a Message</h2>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        {FIELDS.slice(0, 2).map((field, i) => (
+                          <FloatingInputField
+                            key={field.name}
+                            {...field}
+                            register={register}
+                            error={errors[field.name]}
+                            delay={i * 0.05}
+                          />
+                        ))}
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        {FIELDS.slice(2).map((field, i) => (
+                          <FloatingInputField
+                            key={field.name}
+                            {...field}
+                            register={register}
+                            error={errors[field.name]}
+                            delay={i * 0.05 + 0.1}
+                          />
+                        ))}
+                      </div>
+
                       <div>
-                        <p className="text-xs font-semibold mb-1" style={{ color: '#8896A5' }}>{label}</p>
-                        {href ? (
-                          <a href={href} className="text-sm text-white hover:text-teal transition-colors"
-                            style={{ color: '#ffffff' }}>{value}</a>
-                        ) : (
-                          <p className="text-sm text-white">{value}</p>
+                        <label className="block text-xs md:text-sm font-mono uppercase tracking-widest text-silver-dark mb-2 font-bold">
+                          Industry
+                        </label>
+                        <select
+                          {...register('industry')}
+                          className="input-royal w-full text-base"
+                        >
+                          <option value="">Select Your Industry</option>
+                          {INDUSTRIES.map((ind) => (
+                            <option key={ind} value={ind}>{ind}</option>
+                          ))}
+                        </select>
+                        {errors.industry && (
+                          <p className="flex items-center gap-1.5 text-xs text-red-500 mt-1.5 font-bold">
+                            <AlertCircle className="w-3.5 h-3.5" /> {errors.industry.message}
+                          </p>
                         )}
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
-              {/* BUG-12 FIX: Use a real, valid Google Maps embed URL for BKC, Mumbai */}
-              <motion.div
-                className="rounded-2xl overflow-hidden h-64"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15545.922904588722!2d80.2206775!3d13.0826802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x82e4b038e247de17!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1720118400000!5m2!1sen!2sin"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="KMK Enterprises Location — Chennai, Tamilnadu"
-                />
-              </motion.div>
-            </AnimatedSection>
-
-            {/* Right: Contact Form */}
-            <div>
-              <AnimatePresence mode="wait">
-                {submitted ? (
-                  <motion.div
-                    key="success"
-                    className="glass rounded-2xl p-10 flex flex-col items-center justify-center h-full text-center"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, type: 'spring' }}
-                  >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 15, delay: 0.2 }}
-                    >
-                      <svg className="w-20 h-20" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="46" fill="none" stroke="#00A896" strokeWidth="4" />
-                        <motion.path
-                          d="M 28 52 L 44 68 L 72 36"
-                          fill="none"
-                          stroke="#00A896"
-                          strokeWidth="5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          initial={{ pathLength: 0 }}
-                          animate={{ pathLength: 1 }}
-                          transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
+                      <div>
+                        <label className="block text-xs md:text-sm font-mono uppercase tracking-widest text-silver-dark mb-2 font-bold">
+                          Message
+                        </label>
+                        <textarea
+                          {...register('message')}
+                          placeholder="Tell us about your project, product idea, or inquiry..."
+                          rows={4}
+                          className="input-royal w-full text-base resize-none"
                         />
-                      </svg>
-                    </motion.div>
-                    <h3 className="text-2xl font-black text-white mt-6 mb-3">Message Sent!</h3>
-                    <p className="text-sm" style={{ color: '#8896A5' }}>
-                      Thank you for reaching out. Our team will respond within 24 hours.
-                    </p>
-                    <motion.button
-                      className="mt-8 px-6 py-3 rounded-xl font-bold text-sm border"
-                      style={{ borderColor: 'rgba(0,168,150,0.3)', color: '#00A896' }}
-                      whileHover={{ backgroundColor: 'rgba(0,168,150,0.1)' }}
-                      onClick={() => setSubmitted(false)}
-                    >
-                      Send Another Message
-                    </motion.button>
-                  </motion.div>
-                ) : (
-                  <motion.form
-                    key="form"
-                    className="glass rounded-2xl p-8 flex flex-col gap-6"
-                    onSubmit={handleSubmit(onSubmit)}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    <h2 className="text-2xl font-black text-white mb-2">Send Us a Message</h2>
+                        {errors.message && (
+                          <p className="flex items-center gap-1.5 text-xs text-red-500 mt-1.5 font-bold">
+                            <AlertCircle className="w-3.5 h-3.5" /> {errors.message.message}
+                          </p>
+                        )}
+                      </div>
 
-                    {FIELDS.map((field, i) => (
-                      <FloatingLabelInput
-                        key={field.name}
-                        {...field}
-                        register={register}
-                        error={errors[field.name]}
-                        delay={i * 0.08}
-                      />
-                    ))}
-
-                    {/* Industry Select */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.32 }}
-                    >
-                      <select
-                        {...register('industry')}
-                        className="w-full rounded-xl text-sm outline-none"
-                        style={{
-                          border: `1.5px solid ${errors.industry ? '#ef4444' : 'rgba(255,255,255,0.1)'}`,
-                          backgroundColor: 'rgba(255,255,255,0.03)',
-                          color: '#ffffff',
-                          padding: '1rem 1.25rem',
-                        }}
+                      <motion.button
+                        type="submit"
+                        disabled={loading}
+                        className="btn-primary-royal w-full flex items-center justify-center gap-2 mt-2 uppercase font-mono text-sm tracking-wider font-bold py-4"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                       >
-                        <option value="" style={{ backgroundColor: '#0B1F3A' }}>Select Your Industry</option>
-                        {INDUSTRIES.map((ind) => (
-                          <option key={ind} value={ind} style={{ backgroundColor: '#0B1F3A' }}>{ind}</option>
-                        ))}
-                      </select>
-                      {errors.industry && (
-                        <p className="flex items-center gap-1.5 text-xs mt-1.5" style={{ color: '#ef4444' }}>
-                          <AlertCircle className="w-3 h-3" /> {errors.industry.message}
-                        </p>
-                      )}
-                    </motion.div>
-
-                    {/* Message Textarea */}
-                    <motion.div
-                      className="relative"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                    >
-                      <textarea
-                        {...register('message')}
-                        placeholder="Tell us about your project, product idea, or inquiry..."
-                        rows={5}
-                        className="w-full rounded-xl text-white text-sm resize-none outline-none"
-                        style={{
-                          border: `1.5px solid ${errors.message ? '#ef4444' : 'rgba(255,255,255,0.1)'}`,
-                          backgroundColor: 'rgba(255,255,255,0.03)',
-                          padding: '1rem 1.25rem',
-                        }}
-                      />
-                      {errors.message && (
-                        <p className="flex items-center gap-1.5 text-xs mt-1.5" style={{ color: '#ef4444' }}>
-                          <AlertCircle className="w-3 h-3" /> {errors.message.message}
-                        </p>
-                      )}
-                    </motion.div>
-
-                    {/* Submit */}
-                    <motion.button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full py-4 rounded-xl font-bold text-white flex items-center justify-center gap-3"
-                      style={{ background: 'linear-gradient(135deg, #00A896, #007a6e)' }}
-                      whileHover={{ scale: 1.02, boxShadow: '0 0 40px rgba(0,168,150,0.4)' }}
-                      whileTap={{ scale: 0.98 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.48 }}
-                    >
-                      {loading ? (
-                        <>
-                          <div className="w-5 h-5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-5 h-5" />
-                          Send Message
-                        </>
-                      )}
-                    </motion.button>
-                  </motion.form>
-                )}
-              </AnimatePresence>
+                        {loading ? (
+                          <>
+                            <div className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-4 h-4" />
+                            Send Message
+                          </>
+                        )}
+                      </motion.button>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Stats */}
-      <section className="py-16" style={{ backgroundColor: '#060f1e' }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { val: '< 24h', label: 'Response Time' },
-              { val: '100%', label: 'Confidential' },
-              { val: 'Free', label: 'Initial Consult' },
-              { val: 'Pan India', label: 'Service Area' },
-            ].map((stat) => (
-              <motion.div
-                key={stat.label}
-                className="text-center glass rounded-xl p-5"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="text-2xl font-black mb-1 gradient-text-teal">{stat.val}</div>
-                <div className="text-xs" style={{ color: '#8896A5' }}>{stat.label}</div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

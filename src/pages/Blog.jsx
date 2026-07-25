@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
-import AnimatedSection, { staggerContainer, slideUp } from '../components/AnimatedSection';
+import AnimatedSection from '../components/AnimatedSection';
 import { ArrowRight, Clock, Tag } from 'lucide-react';
 
 const CATEGORIES_FILTER = [
@@ -20,9 +20,7 @@ const ARTICLES = [
     readTime: '6 min',
     date: 'Jun 2025',
     tag: 'Food Tech',
-    color: '#00A896',
     featured: true,
-    gradient: 'linear-gradient(135deg, rgba(0,168,150,0.2), rgba(11,31,58,0.9))',
   },
   {
     id: 2,
@@ -32,9 +30,8 @@ const ARTICLES = [
     readTime: '8 min',
     date: 'May 2025',
     tag: 'Industry',
-    color: '#7B2FBE',
     featured: false,
-    gradient: 'linear-gradient(135deg, rgba(123,47,190,0.15), rgba(11,31,58,0.9))',
+    isNew: true,
   },
   {
     id: 3,
@@ -44,9 +41,7 @@ const ARTICLES = [
     readTime: '10 min',
     date: 'Apr 2025',
     tag: 'Research',
-    color: '#F4A100',
     featured: false,
-    gradient: 'linear-gradient(135deg, rgba(244,161,0,0.12), rgba(11,31,58,0.9))',
   },
   {
     id: 4,
@@ -56,9 +51,7 @@ const ARTICLES = [
     readTime: '5 min',
     date: 'Mar 2025',
     tag: 'Trends',
-    color: '#00A896',
     featured: false,
-    gradient: 'linear-gradient(135deg, rgba(0,168,150,0.12), rgba(11,31,58,0.9))',
   },
   {
     id: 5,
@@ -68,95 +61,51 @@ const ARTICLES = [
     readTime: '12 min',
     date: 'Feb 2025',
     tag: 'Research',
-    color: '#7B2FBE',
     featured: false,
-    gradient: 'linear-gradient(135deg, rgba(123,47,190,0.12), rgba(11,31,58,0.9))',
   },
   {
     id: 6,
     title: 'HPP Technology: Extending Shelf Life Without Preservatives',
-    excerpt: 'High Pressure Processing is no longer just for large FMCG players — here\'s how SMEs can adopt it affordably.',
+    excerpt: "High Pressure Processing is no longer just for large FMCG players — here's how SMEs can adopt it affordably.",
     category: 'food-tech',
     readTime: '7 min',
     date: 'Jan 2025',
     tag: 'Food Tech',
-    color: '#F4A100',
     featured: false,
-    gradient: 'linear-gradient(135deg, rgba(244,161,0,0.1), rgba(11,31,58,0.9))',
-  },
-  {
-    id: 7,
-    title: 'The 10 Food Trends Defining 2025',
-    excerpt: 'From regenerative agriculture to AI-designed flavors — what KMK\'s food technologists are watching closely.',
-    category: 'trends',
-    readTime: '9 min',
-    date: 'Dec 2024',
-    tag: 'Trends',
-    color: '#00A896',
-    featured: false,
-    gradient: 'linear-gradient(135deg, rgba(0,168,150,0.1), rgba(11,31,58,0.9))',
   },
 ];
 
 function ArticleCard({ article, index, isFeatured }) {
-  const [hovered, setHovered] = useState(false);
-
   if (isFeatured) {
     return (
       <motion.article
-        className="glass rounded-2xl overflow-hidden relative cursor-pointer group col-span-full"
-        style={{ background: article.gradient, border: `1px solid ${article.color}25` }}
-        initial={{ opacity: 0, y: 40 }}
+        className="bg-white rounded-2xl p-8 md:p-14 shadow-card border border-slate-200 relative cursor-pointer group col-span-full border-t-4 border-t-royal-primary"
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        whileHover={{ boxShadow: `0 20px 60px ${article.color}20` }}
-        onHoverStart={() => setHovered(true)}
-        onHoverEnd={() => setHovered(false)}
+        viewport={{ once: true }}
+        whileHover={{ y: -6, boxShadow: '0 16px 48px rgba(11,79,156,0.18)' }}
       >
-        <div className="p-10">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full"
-              style={{ backgroundColor: `${article.color}20`, color: article.color }}>
-              Featured
-            </span>
-            <span className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full"
-              style={{ backgroundColor: `${article.color}15`, color: article.color }}>
-              {article.tag}
-            </span>
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-xs font-mono uppercase tracking-widest tag-royal font-bold">
+            Featured
+          </span>
+          <span className="text-xs font-mono uppercase tracking-widest tag-muted font-bold">
+            {article.tag}
+          </span>
+        </div>
+        <h2 className="text-4xl md:text-6xl font-display font-normal text-navy mb-6 max-w-4xl leading-tight group-hover:text-royal-primary transition-colors" style={{ fontFamily: '"DM Serif Display", serif' }}>
+          {article.title}
+        </h2>
+        <p className="text-lg md:text-xl text-text-body mb-8 max-w-3xl font-medium leading-relaxed">{article.excerpt}</p>
+        <div className="flex items-center justify-between pt-6 border-t border-cream-divider">
+          <div className="flex items-center gap-6 text-xs md:text-sm text-silver-dark font-mono font-bold">
+            <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-royal-primary" /> {article.readTime} read</span>
+            <span className="flex items-center gap-1.5"><Tag className="w-4 h-4 text-royal-primary" /> {article.date}</span>
           </div>
-          <h2 className="text-2xl md:text-4xl font-black text-white mb-4 max-w-2xl group-hover:text-teal transition-colors duration-300"
-            style={{ transition: 'color 0.3s' }}>
-            {article.title}
-          </h2>
-          <p className="text-base max-w-xl mb-8" style={{ color: '#8896A5' }}>{article.excerpt}</p>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-6 text-xs" style={{ color: '#8896A5' }}>
-              <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {article.readTime} read</span>
-              <span className="flex items-center gap-1.5"><Tag className="w-3.5 h-3.5" /> {article.date}</span>
-            </div>
-            <motion.div
-              className="flex items-center gap-2 font-bold text-sm"
-              style={{ color: article.color }}
-              animate={{ gap: hovered ? '16px' : '8px' }}
-            >
-              Read Article <ArrowRight className="w-4 h-4" />
-            </motion.div>
+          <div className="flex items-center gap-2 font-mono text-sm font-bold uppercase text-royal-primary">
+            Read Article <ArrowRight className="w-4 h-4" />
           </div>
         </div>
-
-        {/* Parallax hover image effect */}
-        <motion.div
-          className="absolute right-8 top-8 w-40 h-40 rounded-xl opacity-20 hidden lg:block"
-          style={{
-            background: `radial-gradient(circle, ${article.color}80, transparent 70%)`,
-          }}
-          animate={{
-            x: hovered ? -10 : 0,
-            y: hovered ? -10 : 0,
-            scale: hovered ? 1.2 : 1,
-          }}
-          transition={{ duration: 0.4 }}
-        />
       </motion.article>
     );
   }
@@ -164,46 +113,38 @@ function ArticleCard({ article, index, isFeatured }) {
   return (
     <motion.article
       layout
-      className="glass rounded-2xl overflow-hidden relative cursor-pointer group"
-      style={{ background: article.gradient, border: `1px solid ${article.color}20` }}
-      initial={{ opacity: 0, y: 40 }}
+      className="card-royal p-8 flex flex-col justify-between group cursor-pointer"
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, delay: index * 0.06 }}
-      whileHover={{ y: -6, boxShadow: `0 20px 40px ${article.color}20` }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      whileHover={{ y: -6 }}
     >
-      {/* Teal left border sweep */}
-      <motion.div
-        className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
-        style={{ backgroundColor: article.color }}
-        initial={{ scaleY: 0, transformOrigin: 'bottom' }}
-        whileInView={{ scaleY: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: index * 0.08 }}
-      />
-
-      <div className="p-6">
+      <div>
         <div className="flex items-center justify-between mb-4">
-          <span className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
-            style={{ backgroundColor: `${article.color}15`, color: article.color }}>
+          <span className="text-xs font-mono uppercase tracking-widest tag-royal font-bold">
             {article.tag}
           </span>
-          <span className="text-xs" style={{ color: '#8896A5' }}>{article.date}</span>
+          {article.isNew && (
+            <span className="text-xs font-mono uppercase tracking-widest px-3 py-1 rounded-full bg-royal-primary text-white font-bold">
+              New
+            </span>
+          )}
         </div>
 
-        <h3 className="text-base font-bold text-white mb-3 leading-snug group-hover:text-opacity-80 transition-colors">
+        <h3 className="text-xl md:text-2xl font-bold text-navy mb-3 leading-snug group-hover:text-royal-primary transition-colors">
           {article.title}
         </h3>
-        <p className="text-sm leading-relaxed mb-5" style={{ color: '#8896A5' }}>{article.excerpt}</p>
+        <p className="text-base text-text-body font-medium leading-relaxed mb-6">{article.excerpt}</p>
+      </div>
 
-        <div className="flex items-center justify-between">
-          <span className="flex items-center gap-1.5 text-xs" style={{ color: '#8896A5' }}>
-            <Clock className="w-3 h-3" /> {article.readTime} read
-          </span>
-          <span className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: article.color }}>
-            Read more <ArrowRight className="w-3 h-3" />
-          </span>
-        </div>
+      <div className="pt-4 border-t border-cream-divider flex items-center justify-between">
+        <span className="flex items-center gap-1.5 text-xs font-mono text-silver-dark font-bold">
+          <Clock className="w-4 h-4 text-royal-primary" /> {article.readTime} read
+        </span>
+        <span className="flex items-center gap-1 text-xs font-mono font-bold uppercase text-royal-primary">
+          Read more <ArrowRight className="w-4 h-4" />
+        </span>
       </div>
     </motion.article>
   );
@@ -218,18 +159,18 @@ export default function Blog() {
   );
 
   return (
-    <div className="bg-navy min-h-screen" style={{ backgroundColor: '#0B1F3A' }}>
-      {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center pt-32 pb-20 md:pt-40 md:pb-28" style={{ background: 'linear-gradient(180deg, #060f1e 0%, #0B1F3A 100%)' }}>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
-
+    <div className="bg-base min-h-screen grain-overlay">
+      {/* Hero Header */}
+      <section className="relative min-h-[40vh] flex items-center page-hero-pt pb-20 md:pb-24 bg-base border-b border-cream-divider">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
           <AnimatedSection>
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: '#00A896' }}>Knowledge Hub</p>
-            <h1 className="text-4xl md:text-6xl font-black text-white mb-6">
-              Blog & <span className="gradient-text-teal">Insights</span>
+            <span className="text-xs md:text-sm font-mono tracking-widest uppercase mb-4 inline-block tag-royal">
+              Knowledge Hub
+            </span>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-normal text-navy mb-6" style={{ fontFamily: '"DM Serif Display", serif' }}>
+              Blog & Insights
             </h1>
-            <p className="text-lg max-w-2xl" style={{ color: '#8896A5' }}>
+            <p className="text-lg md:text-2xl max-w-3xl text-text-body font-medium leading-relaxed">
               Cutting-edge perspectives on food technology, regulation, and market trends from KMK's experts.
             </p>
           </AnimatedSection>
@@ -237,7 +178,7 @@ export default function Blog() {
       </section>
 
       {/* Filter Pills */}
-      <section className="py-10" style={{ backgroundColor: '#060f1e' }}>
+      <section className="py-8 bg-soft border-b border-cream-divider">
         <div className="max-w-7xl mx-auto px-6">
           <LayoutGroup>
             <div className="flex flex-wrap justify-center gap-3">
@@ -245,23 +186,17 @@ export default function Blog() {
                 <motion.button
                   key={cat.id}
                   layout
-                  className="relative px-5 py-2.5 rounded-full text-sm font-bold"
+                  className="relative px-5 py-2.5 rounded-full text-xs md:text-sm font-mono font-bold uppercase transition-all"
                   style={{
-                    color: activeCategory === cat.id ? '#fff' : '#8896A5',
+                    backgroundColor: activeCategory === cat.id ? '#0B4F9C' : '#FFFFFF',
+                    color: activeCategory === cat.id ? '#FFFFFF' : '#334155',
+                    border: activeCategory === cat.id ? '1px solid #0B4F9C' : '1px solid #EAE5D9',
                   }}
                   onClick={() => setActiveCategory(cat.id)}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {activeCategory === cat.id && (
-                    <motion.div
-                      layoutId="blog-pill"
-                      className="absolute inset-0 rounded-full"
-                      style={{ backgroundColor: '#00A896' }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{cat.label}</span>
+                  {cat.label}
                 </motion.button>
               ))}
             </div>
@@ -270,14 +205,10 @@ export default function Blog() {
       </section>
 
       {/* Articles Grid */}
-      <section className="section-padding">
+      <section className="section-padding-royal bg-soft">
         <div className="max-w-7xl mx-auto px-6">
           <LayoutGroup>
-            <motion.div
-              layout
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
-              {/* Featured (always shown regardless of filter) */}
+            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {activeCategory === 'all' && featured && (
                 <ArticleCard key={featured.id} article={featured} index={0} isFeatured />
               )}
@@ -289,16 +220,6 @@ export default function Blog() {
               </AnimatePresence>
             </motion.div>
           </LayoutGroup>
-
-          <AnimatedSection className="text-center mt-16">
-            <motion.button
-              className="px-10 py-4 rounded-xl font-bold text-sm border"
-              style={{ borderColor: 'rgba(0,168,150,0.3)', color: '#00A896' }}
-              whileHover={{ backgroundColor: 'rgba(0,168,150,0.1)', borderColor: '#00A896' }}
-            >
-              Load More Articles
-            </motion.button>
-          </AnimatedSection>
         </div>
       </section>
     </div>

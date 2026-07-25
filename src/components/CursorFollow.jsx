@@ -19,18 +19,19 @@ export default function CursorFollow() {
     };
 
     const onHoverIn = (e) => {
-      const el = e.target.closest('a, button, [data-cursor-hover]');
+      const el = e.target.closest('a, button, input, select, textarea, [data-cursor-hover]');
       if (el) setHovered(true);
     };
 
     const onHoverOut = (e) => {
-      const el = e.target.closest('a, button, [data-cursor-hover]');
+      const el = e.target.closest('a, button, input, select, textarea, [data-cursor-hover]');
       if (el) setHovered(false);
     };
 
     const animate = () => {
-      currentRef.current.x += (targetRef.current.x - currentRef.current.x) * 0.15;
-      currentRef.current.y += (targetRef.current.y - currentRef.current.y) * 0.15;
+      currentRef.current.x += (targetRef.current.x - currentRef.current.x) * 0.2;
+      currentRef.current.y += (targetRef.current.y - currentRef.current.y) * 0.2;
+
       setPos({ x: currentRef.current.x, y: currentRef.current.y });
       rafRef.current = requestAnimationFrame(animate);
     };
@@ -46,26 +47,15 @@ export default function CursorFollow() {
       document.removeEventListener('mouseout', onHoverOut);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, []);
-
+  }, [visible]);
 
   return (
     <AnimatePresence>
       {visible && (
         <>
-          {/* Main cursor dot */}
+          {/* Main royal dot */}
           <motion.div
-            className="fixed pointer-events-none z-[99999] mix-blend-difference"
-            style={{ left: pos.x, top: pos.y, x: '-50%', y: '-50%' }}
-            animate={{
-              width: hovered ? 40 : 12,
-              height: hovered ? 40 : 12,
-              backgroundColor: hovered ? '#00A896' : '#ffffff',
-              opacity: 1,
-            }}
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            className="fixed pointer-events-none z-[99999]"
             style={{
               position: 'fixed',
               borderRadius: '50%',
@@ -74,24 +64,32 @@ export default function CursorFollow() {
               transform: 'translate(-50%, -50%)',
               pointerEvents: 'none',
               zIndex: 99999,
-              mixBlendMode: 'difference',
             }}
+            animate={{
+              width: hovered ? 36 : 10,
+              height: hovered ? 36 : 10,
+              backgroundColor: hovered ? '#0B4F9C' : '#FAF9F6',
+              border: hovered ? '2px solid #1D70B8' : '2px solid #0B4F9C',
+              boxShadow: hovered ? '0 0 25px rgba(11,79,156,0.5)' : 'none',
+            }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
           />
-          {/* Outer ring (slower follow) */}
+
+          {/* Outer ring */}
           <motion.div
             className="fixed pointer-events-none z-[99998]"
             style={{
               position: 'fixed',
-              width: hovered ? 60 : 36,
-              height: hovered ? 60 : 36,
-              border: `1.5px solid ${hovered ? '#00A896' : 'rgba(255,255,255,0.4)'}`,
+              width: hovered ? 52 : 30,
+              height: hovered ? 52 : 30,
+              border: `1px solid ${hovered ? '#0B4F9C' : 'rgba(11,79,156,0.35)'}`,
               borderRadius: '50%',
               left: pos.x,
               top: pos.y,
               transform: 'translate(-50%, -50%)',
               pointerEvents: 'none',
               zIndex: 99998,
-              transition: 'width 0.3s ease, height 0.3s ease, border-color 0.3s ease',
+              transition: 'width 0.2s ease, height 0.2s ease, border-color 0.2s ease',
             }}
           />
         </>
