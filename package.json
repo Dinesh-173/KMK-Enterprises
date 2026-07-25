@@ -22,8 +22,8 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-hook-form": "^7.80.0",
+    "react-parallax-tilt": "^1.7.333",
     "react-router-dom": "^7.18.1",
-    "react-tilt": "^1.0.2",
     "three": "^0.185.1",
     "zod": "^4.4.3"
   },
