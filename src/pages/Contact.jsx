@@ -24,7 +24,7 @@ const FIELDS = [
 
 const INDUSTRIES = [
   'Dairy', 'Ice Cream & Frozen', 'Functional Foods', 'Beverages',
-  'Confectionery', 'Bakery', 'FMCG', 'Nutritional', 'Startup', 'Other'
+  'Confectionery', 'Nutritional', 'Startup', 'Other'
 ];
 
 function FloatingInputField({ name, label, type = 'text', placeholder, register, error, delay = 0 }) {

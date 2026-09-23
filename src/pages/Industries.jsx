@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import AnimatedSection from '../components/AnimatedSection';
-import { Milk, IceCream2, Leaf, Coffee, Candy, Croissant, ShoppingBag, Heart } from 'lucide-react';
+import { Milk, IceCream2, Leaf, Coffee, Candy, Heart } from 'lucide-react';
 
 const INDUSTRIES = [
-  { id: 'dairy', label: 'Dairy', icon: Milk, category: 'food', desc: 'Fermented dairy, cheese, butter, ghee, yogurt innovations.' },
+  { id: 'dairy', label: 'Dairy', icon: Milk, category: 'food', desc: 'Fermented dairy, cheese, butter, yogurt innovations.' },
   { id: 'ice-cream', label: 'Ice Creams', icon: IceCream2, category: 'frozen', desc: 'Artisanal, functional, and millet-based frozen desserts.' },
   { id: 'functional', label: 'Functional Foods', icon: Heart, category: 'health', desc: 'Nutraceuticals, fortified foods, and health-first products.' },
   { id: 'beverages', label: 'Health Beverages', icon: Coffee, category: 'health', desc: 'Plant-based drinks, health shots, and functional beverages.' },
   { id: 'confectionery', label: 'Confectionery', icon: Candy, category: 'food', desc: 'Chocolates, gummies, sugar-free and premium candies.' },
-  { id: 'bakery', label: 'Bakery', icon: Croissant, category: 'food', desc: 'Breads, pastries, gluten-free, and artisan baked goods.' },
-  { id: 'fmcg', label: 'FMCG', icon: ShoppingBag, category: 'retail', desc: 'Mass-market consumer foods, snacks, and packaged products.' },
   { id: 'nutritional', label: 'Nutritional', icon: Leaf, category: 'health', desc: 'Sports nutrition, infant foods, and therapeutic diets.' },
 ];
 
@@ -19,7 +17,6 @@ const CATEGORIES = [
   { id: 'food', label: 'Food & Dairy' },
   { id: 'health', label: 'Health & Wellness' },
   { id: 'frozen', label: 'Frozen' },
-  { id: 'retail', label: 'FMCG & Retail' },
 ];
 
 function HexCard({ industry, isActive, onClick, index }) {

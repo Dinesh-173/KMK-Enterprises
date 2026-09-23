@@ -75,7 +75,7 @@ function StatCard({ value, suffix, label }) {
 }
 
 const SERVICES = [
-  { icon: Beaker, title: 'Product Development', desc: 'From concept to shelf — we engineer breakthrough food products with precision formulation.' },
+  { icon: Beaker, title: 'Product Development', desc: 'From concept to commercialization — we engineer breakthrough food products with precision formulation.' },
   { icon: ShieldCheck, title: 'Regulatory & Quality', desc: 'Navigate complex compliance landscapes with our expert regulatory and quality systems.' },
   { icon: Lightbulb, title: 'Food Tech Consulting', desc: 'Strategic advisory that unlocks hidden value across your food technology value chain.' },
   { icon: Rocket, title: 'R&D Innovation', desc: 'Cutting-edge research translating consumer insights into market-ready innovations.' },
@@ -352,7 +352,7 @@ export default function Home() {
                   <div>
                     <h3 className="text-3xl md:text-4xl font-display font-normal text-navy mb-4" style={{ fontFamily: '"DM Serif Display", serif' }}>RKV Enterprises</h3>
                     <p className="text-base text-text-body font-medium leading-relaxed mb-6">
-                      Premium food ingredient solutions powering manufacturers across dairy, bakery, and beverage sectors.
+                      Premium food ingredient solutions powering manufacturers across dairy and beverage sectors.
                     </p>
                   </div>
                   <Link to="/divisions">

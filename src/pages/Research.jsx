@@ -154,8 +154,8 @@ export default function Research() {
                   {[
                     'Analytical & Rheological Testing Instruments',
                     'Standardized ISO Sensory Evaluation Booths',
-                    'Benchtop Pilot Production Lines for Dairy & Bakery',
-                    'Accelerated Shelf-Life & Stability Incubators'
+                    'Benchtop Pilot Production Lines for Dairy & Foods',
+                    'Accelerated Stability Testing Incubators'
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-3">
                       <CheckCircle2 className="w-5 h-5 text-royal-primary flex-shrink-0" />

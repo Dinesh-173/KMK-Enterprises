@@ -15,9 +15,8 @@ const SERVICES = [
     features: [
       'Concept ideation and feasibility studies',
       'Formulation R&D and prototype development',
-      'Sensory evaluation and consumer testing',
+      'Sensory evaluation',
       'Scale-up from bench to pilot to commercial production',
-      'Shelf-life and stability testing',
       'Packaging development and optimization',
     ],
   },

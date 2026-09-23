@@ -21,7 +21,7 @@ const RKV_CATEGORIES = [
     title: 'Dairy Ingredients',
     tag: 'Category 01',
     image: '/images/dairy_ingredients.png',
-    items: ['Whey Protein Concentrates', 'Milk Protein Isolates', 'Caseinates', 'Lactose & Permeate', 'Butter Oil & AMF'],
+    items: ['Whey Protein Concentrates', 'Milk Protein Isolates', 'Caseinates', 'Lactose & Permeate'],
   },
   {
     title: 'Functional Additives',
@@ -30,16 +30,10 @@ const RKV_CATEGORIES = [
     items: ['Emulsifiers & Stabilizers', 'Natural Flavor Enhancers', 'Colour Solutions', 'Antioxidants', 'Preservatives'],
   },
   {
-    title: 'Bakery Ingredients',
-    tag: 'Category 03',
-    image: '/images/service_food_tech.png',
-    items: ['Specialty Fats & Shortening', 'Bread Improvers', 'Malt Extracts', 'Egg Substitutes', 'Baking Enzymes'],
-  },
-  {
     title: 'Health & Nutrition',
-    tag: 'Category 04',
+    tag: 'Category 03',
     image: '/images/rd_laboratory.png',
-    items: ['Prebiotic Fibres', 'Plant Protein Blends', 'Vitamin & Mineral Premixes', 'Omega-3 Oils', 'Collagen Peptides'],
+    items: ['Prebiotic Fibres', 'Plant Protein Blends', 'Vitamin & Mineral Premixes', 'Omega-3 Oils'],
   },
 ];
 
@@ -231,7 +225,7 @@ export default function Divisions() {
               <h2 className="text-4xl sm:text-6xl font-display font-normal text-navy mb-4" style={{ fontFamily: '"DM Serif Display", serif' }}>RKV Enterprises</h2>
               <p className="text-xl md:text-2xl font-mono text-silver-dark font-bold mb-6">Premium Specialty Ingredient Solutions</p>
               <p className="text-base md:text-lg text-text-body mb-10 leading-relaxed font-medium">
-                RKV Enterprises is KMK's B2B ingredient solutions arm — sourcing, blending, and distributing premium food ingredients to manufacturers across dairy, bakery, and beverage industries.
+                RKV Enterprises is KMK's B2B ingredient solutions arm — sourcing, blending, and distributing premium food ingredients to manufacturers across dairy and beverage industries.
               </p>
 
               <Link to="/contact">

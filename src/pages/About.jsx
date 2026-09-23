@@ -15,14 +15,30 @@ const TIMELINE = [
 const TEAM = [
   {
     name: 'Manivvannan A',
-    role: 'CEO, KMK Enterprises | Senior Food & Dairy Technologist',
-    expertise: 'Food and Dairy Technologist with 20+ years of experience in dairy and confectionery, specializing in R&D, product innovation, process optimization, and prototype development.',
+    role: 'CEO, KMK Enterprises | Senior Food Technologist',
+    expertise: 'Food Technologist with 20+ years of experience in dairy and confectionery, specializing in R&D, product innovation, process optimization, and prototype development.',
     isCeo: true,
   },
-  { name: 'Ankit Verma', role: 'Head of Regulatory Affairs', expertise: 'FSSAI certified expert with extensive knowledge of international food safety standards and certifications.' },
-  { name: 'Priya Nair', role: 'Innovation Director', expertise: 'Consumer insights specialist driving trend-to-product pipelines across health & wellness segments.' },
-  { name: 'Sanjay Mehta', role: 'Director — Sabrosa', expertise: 'Ice cream technology expert with deep expertise in artisanal and functional frozen dessert development.' },
-  { name: 'Kavitha Rao', role: 'Quality Systems Lead', expertise: 'ISO 22000 & HACCP practitioner ensuring gold-standard quality across all KMK product lines.' },
+  {
+    name: 'Bhaurao Nikhade, PhD',
+    role: 'R&D, Product & Process Development',
+    expertise: '19+ years of expertise in R&D, Product & Process Development, and Project Management, with cross-functional experience spanning Nutrition, Regulatory, Supply Chain, and Manufacturing Operations. Proven expertise across food, dairy, snacks, sauces, dry products, and beverage formulations.',
+  },
+  {
+    name: 'Ajayakumar S. A.',
+    role: 'R&D, Quality & Regulatory Affairs',
+    expertise: 'Food industry professional with 27+ years of experience in R&D, Product Development, Quality, and Regulatory Affairs. His expertise covers Chocolate, Confectionery, Bakery, Beverages, Flavours, Process Development, and Commercialization, with experience across leading global organizations.',
+  },
+  {
+    name: 'Debashis DasGupta',
+    role: 'Founder — Packaging Development',
+    expertise: 'Packaging Development professional with 30+ years of experience across FMCG, Pharma, Food & Beverage, and Healthcare. Expertise in packaging innovation, sustainable solutions, regulatory compliance, value engineering, and cost optimization, with a strong focus on consumer-centric packaging.',
+  },
+  {
+    name: 'Shubhada Prabhu',
+    role: 'Quality & Product Innovation',
+    expertise: 'Quality & Product Innovation Professional with 18+ years of experience across PepsiCo, Unilever, and McDonald’s, specializing in Quality Management, Food Safety, Product Development, Regulatory Compliance, Audits, and Process Improvement. Experienced in delivering quality and innovation projects across India and international markets.',
+  },
 ];
 
 export default function About() {
