@@ -22,22 +22,22 @@ const TEAM = [
   {
     name: 'Bhaurao Nikhade, PhD',
     role: 'R&D, Product & Process Development',
-    expertise: '19+ years of expertise in R&D, Product & Process Development, and Project Management, with cross-functional experience spanning Nutrition, Regulatory, Supply Chain, and Manufacturing Operations. Proven expertise across food, dairy, snacks, sauces, dry products, and beverage formulations.',
+    expertise: '19+ years of expertise in R&D, Product & Process Development, and Project Management across Nutrition, Regulatory, Supply Chain, and Operations. Formulations expert in food, dairy, snacks, sauces, and beverages.',
   },
   {
     name: 'Ajayakumar S. A.',
     role: 'R&D, Quality & Regulatory Affairs',
-    expertise: 'Food industry professional with 27+ years of experience in R&D, Product Development, Quality, and Regulatory Affairs. His expertise covers Chocolate, Confectionery, Bakery, Beverages, Flavours, Process Development, and Commercialization, with experience across leading global organizations.',
+    expertise: 'Food industry professional with 27+ years of experience in R&D, Product Development, Quality, and Regulatory Affairs. Specializes in Confectionery, Beverages, Flavours, and Commercialization across global organizations.',
   },
   {
     name: 'Debashis DasGupta',
     role: 'Founder — Packaging Development',
-    expertise: 'Packaging Development professional with 30+ years of experience across FMCG, Pharma, Food & Beverage, and Healthcare. Expertise in packaging innovation, sustainable solutions, regulatory compliance, value engineering, and cost optimization, with a strong focus on consumer-centric packaging.',
+    expertise: 'Packaging Development professional with 30+ years of experience across FMCG, Pharma, Food & Beverage, and Healthcare. Specializes in packaging innovation, sustainability, regulatory compliance, and value engineering.',
   },
   {
     name: 'Shubhada Prabhu',
     role: 'Quality & Product Innovation',
-    expertise: 'Quality & Product Innovation Professional with 18+ years of experience across PepsiCo, Unilever, and McDonald’s, specializing in Quality Management, Food Safety, Product Development, Regulatory Compliance, Audits, and Process Improvement. Experienced in delivering quality and innovation projects across India and international markets.',
+    expertise: 'Quality & Product Innovation leader with 18+ years across PepsiCo, Unilever, and McDonald’s. Expert in Quality Management, Food Safety, Regulatory Compliance, and Audits across India and global markets.',
   },
 ];
 
@@ -238,50 +238,65 @@ export default function About() {
             </div>
           </AnimatedSection>
 
-          {/* Uniform Team Grid — all cards same size */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {TEAM.map((member) => (
-              <motion.div
-                key={member.name}
-                className="card-royal p-8 flex flex-col"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                {/* Avatar */}
-                <div className="w-14 h-14 rounded-full mb-5 flex items-center justify-center font-display text-2xl"
-                  style={{
-                    fontFamily: '"DM Serif Display", serif',
-                    backgroundColor: member.isCeo ? '#0B4F9C' : '#E0F2FE',
-                    color: member.isCeo ? '#FFFFFF' : '#0A192F',
-                    border: member.isCeo ? 'none' : '1px solid #60A5FA',
-                  }}
+          {/* Uniform Team Grid — all cards same size & perfectly contained */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+            {TEAM.map((member, index) => {
+              // Center the 2 cards on the second row for lg screens (cols 2-3 and 4-5 out of 6)
+              const colClass = index < 3
+                ? 'lg:col-span-2'
+                : index === 3
+                  ? 'lg:col-start-2 lg:col-span-2'
+                  : 'lg:col-span-2';
+
+              return (
+                <motion.div
+                  key={member.name}
+                  className={`card-royal p-7 md:p-8 flex flex-col justify-start h-full ${colClass}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
                 >
-                  {member.name[0]}
-                </div>
+                  {/* Top: Avatar & Badge */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div
+                      className="w-13 h-13 sm:w-14 sm:h-14 rounded-full flex items-center justify-center font-display text-2xl font-bold flex-shrink-0"
+                      style={{
+                        fontFamily: '"DM Serif Display", serif',
+                        backgroundColor: member.isCeo ? '#0B4F9C' : '#E0F2FE',
+                        color: member.isCeo ? '#FFFFFF' : '#0B4F9C',
+                        border: member.isCeo ? 'none' : '1px solid #93C5FD',
+                      }}
+                    >
+                      {member.name[0]}
+                    </div>
 
-                {/* Name */}
-                <h3 className="text-xl font-bold text-navy">{member.name}</h3>
+                    {member.isCeo && (
+                      <span className="inline-flex items-center gap-1.5 bg-royal-subtle text-royal-primary font-mono text-[0.68rem] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider border border-royal-light shadow-xs">
+                        <Award className="w-3.5 h-3.5" /> CEO & Founder
+                      </span>
+                    )}
+                  </div>
 
-                {/* Role */}
-                <p className="text-xs font-mono text-royal-primary font-bold mt-1 mb-1 uppercase tracking-wider leading-relaxed">
-                  {member.role}
-                </p>
+                  {/* Name */}
+                  <h3 className="text-xl font-bold text-navy tracking-tight">{member.name}</h3>
 
-                {/* CEO Badge (only for Manivvannan) */}
-                {member.isCeo && (
-                  <span className="inline-flex items-center gap-1.5 self-start bg-royal-subtle text-royal-primary font-mono text-[0.65rem] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-royal-light mb-3">
-                    <Award className="w-3 h-3" /> CEO & Founder
-                  </span>
-                )}
+                  {/* Role with uniform min-height */}
+                  <div className="min-h-[2.5rem] flex items-center mt-1 mb-3">
+                    <p className="text-xs font-mono text-royal-primary font-bold uppercase tracking-wider leading-snug">
+                      {member.role}
+                    </p>
+                  </div>
 
-                {/* Expertise */}
-                <p className="text-base text-text-body leading-relaxed font-medium mt-auto pt-3">
-                  {member.expertise}
-                </p>
-              </motion.div>
-            ))}
+                  <div className="w-full h-px bg-cream-divider mb-4" />
+
+                  {/* Expertise */}
+                  <p className="text-sm text-text-body leading-relaxed font-normal">
+                    {member.expertise}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
