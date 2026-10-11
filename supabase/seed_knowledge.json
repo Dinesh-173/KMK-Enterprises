@@ -1,0 +1,72 @@
+[
+  {
+    "slug": "kmk-company-overview",
+    "title": "KMK Enterprises Overview & Leadership",
+    "category": "company",
+    "source_url": "/about",
+    "content": "KMK Enterprises is an advanced food technology consulting and product development firm led by Senior Food & Dairy Technologist Manivvannan A. With over 20 years of sector-specific formulation and industrial scaling experience, KMK bridges the gap between culinary innovation and commercial food manufacturing. The company operates specialized pilot facilities and testing laboratories in Tamil Nadu, India, serving dairy processors, beverage manufacturers, frozen dessert brands, functional food startups, and confectionery producers worldwide."
+  },
+  {
+    "slug": "kmk-dairy-sector",
+    "title": "Dairy Industry Formulations & Capabilities",
+    "category": "industries",
+    "source_url": "/industries",
+    "content": "KMK Enterprises specializes in comprehensive dairy formulations across traditional, commercial, and novel dairy categories:\n1. Dairy Beverages: Thick indulgent milkshakes, UHT/sterilized flavoured milks resistant to sedimentation and age-gelation, and concentrated high protein dairy beverages formulated for clean taste without astringency or chalkiness.\n2. Fermented Dairy Beverages: Probiotic-rich kefirs, lassis, and fermented drinks formulated with targeted strain viability and clean fermentation kinetics.\n3. Curd & Cultured Dairy: Standardized dahi and curd formulations with consistent firm set, zero whey separation (syneresis), and extended shelf freshness under ambient and refrigerated cold chain conditions."
+  },
+  {
+    "slug": "kmk-ice-creams-sector",
+    "title": "Ice Creams & Frozen Desserts Capabilities",
+    "category": "industries",
+    "source_url": "/industries",
+    "content": "KMK provides end-to-end expertise in crystal size reduction, meltdown control, and frozen dessert matrices:\n- Premium Icecream: High butterfat, low overrun formulations with ultra-velvety texture and gourmet flavor release.\n- Gelato: Dense, slow-churned Italian-style bases with silkiness and authentic mouthfeel.\n- Inclusion Development: Crunchy bits, ripples, fudge swirls, and sauce inclusions engineered to retain texture at -18°C.\n- Fruit Based Icecreams: Real fruit pulps and purees stabilized against icy crystallization and acid curdling.\n- Kulfi: Traditional rabdi-rich formulations with authentic caramelized graininess.\n- Water Ice & Popsicles: Refreshing non-dairy freeze bars with vivid natural colors and anti-bleed stabilizers.\n- Sorbet: Silky fruit sorbets with balanced sugar solids and natural pectin stabilization.\n- Cut Extrusion Icecreams: Novelty shapes, logs, and slices with high shape retention during slicing.\n- Sandwich and Cake Icecreams: Moisture-barrier wafers, biscuits, and sponge cakes assembled with frozen layers."
+  },
+  {
+    "slug": "kmk-functional-foods",
+    "title": "Functional Foods & Nutraceuticals",
+    "category": "industries",
+    "source_url": "/industries",
+    "content": "KMK merges nutritional science with appetizing sensory formats:\n- Nutritional Bars: High-protein, prebiotic, fiber-rich, and energy bars formulated with polyols and tailored binder syrups to prevent texture hardening over long shelf life.\n- Breakfast Cereals with Millet and Vitamins: Twin-screw extruded flakes, rings, and clusters blending ancient millets (ragi, bajra, jowar) with microencapsulated heat-stable vitamins and minerals."
+  },
+  {
+    "slug": "kmk-health-beverages",
+    "title": "Health Beverages & Sugar-Free Innovation",
+    "category": "industries",
+    "source_url": "/industries",
+    "content": "KMK engineers refreshing beverage matrices with clean labels and appealing visual presentation:\n- No Sugar Beverages: Stevia, monk fruit, erythritol, and allulose-sweetened beverages with customized flavor modulators providing natural body and zero metallic aftertaste.\n- Fruit Suspended Beverages: Precision hydrocolloid stabilization systems (gellan gum, pectin, xanthan) providing uniform floating fruit cells, chia seeds, and pulp without precipitation or phase separation."
+  },
+  {
+    "slug": "kmk-confectionery",
+    "title": "Confectionery Formulations & Processing",
+    "category": "industries",
+    "source_url": "/industries",
+    "content": "KMK provides candy and toffee formulations optimized for tropical humidity and high shelf stability:\n- Hard Boils Confectionery: High-vacuum cooked glassy candies resistant to graining and moisture pickup.\n- Toffee: Rich dairy butter and milk-cooked toffees with authentic Maillard reaction caramel notes.\n- Lollipops: Bubble-free molded and deposited lollipops with center-fill paste and powder options.\n- Chewy Toffee: Soft-eating elastic toffees engineered with emulsified vegetable fats and hydrocolloids.\n- Panned Confectionery: Hard and soft panned dragees with uniform gloss, vibrant natural colors, and protective moisture barriers."
+  },
+  {
+    "slug": "kmk-nutritional-sector",
+    "title": "Nutritional & Performance Formulations",
+    "category": "industries",
+    "source_url": "/industries",
+    "content": "KMK formulates science-backed nutritional blends:\n- Sports & Performance Nutrition: Whey protein isolates, plant protein blends (pea, brown rice), BCAA hydration mixes, and recovery drinks.\n- Dietary & Therapeutic Supplements: Clinically balanced meal replacement powders, low GI diabetic-friendly mixes, and elderly nutrition shakes.\n- Infant & Pediatric Nutrition: Gentle, hypoallergenic growing-up milk powders and fortified weaning foods adhering strictly to global nutritional codex norms."
+  },
+  {
+    "slug": "kmk-services-npd",
+    "title": "New Product Development & Pilot Plant Scaling Services",
+    "category": "services",
+    "source_url": "/services",
+    "content": "KMK Enterprises provides turnkey formulation and commercial scale-up services:\n1. Formulation & Recipe Engineering: Scientific ingredient balancing, nutritional profile matching, cost engineering, and clean-label substitution.\n2. Pilot Plant Prototyping: Small-batch pilot runs simulating commercial thermal kinetics (pasteurization, homogenization, retorting, baking, freezing) before industrial manufacturing.\n3. Shelf Life & Accelerated Stability Testing: Microbiological assaying, peroxide value / FFA rancidity tracking, moisture sorption isotherms, and packaging headspace evaluation.\n4. Regulatory & FSSAI Compliance: Label claim verification, nutritional fact panels, allergen disclosure protocols, and ingredient standard alignment."
+  },
+  {
+    "slug": "kmk-research-infrastructure",
+    "title": "KMK Research Laboratories & Pilot Infrastructure",
+    "category": "research",
+    "source_url": "/research",
+    "content": "KMK's dedicated R&D center houses benchtop and pilot equipment including:\n- Benchtop UHT Simulator & Tubular Heat Exchanger for continuous thermal profiling.\n- High-Pressure Homogenizer (up to 500 bar) for ultra-fine emulsion stability.\n- Texture Analyzer with specialized probes for gel strength, overrun firmness, and stickiness.\n- Viscometers & Rheometers for fluid flow characterization.\n- Pilot Batch Ice Cream Continuous Freezer with precision overrun mass flow controllers.\n- Extrusion lines for breakfast cereals and textured protein."
+  },
+  {
+    "slug": "kmk-food-safety-guidelines",
+    "title": "Food Safety, Regulatory Standards & Disclaimers",
+    "category": "regulations",
+    "source_url": "/services",
+    "content": "Food Safety & Regulatory Compliance Principles at KMK Enterprises:\n- All formulations strictly follow FSSAI (Food Safety and Standards Authority of India) standards, CODEX Alimentarius, and US FDA food ingredient norms.\n- Critical parameters include Water Activity (aw < 0.6 for shelf-stable confections), thermal pasteurization lethality (F0/D-value calculations for dairy beverages), and hygienic allergen cross-contact segregation.\n- Important Technical Guidance Disclaimer: Answers and recommendations provided by the KMK AI Assistant represent initial scientific principles and pilot guidance. Actual commercial product launches require formal benchtop pilot trials, certified shelf-life verification, microbiological laboratory challenge tests, and jurisdiction-specific regulatory sign-off by KMK's food technologists."
+  }
+]

@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CursorFollow from './components/CursorFollow';
 import WhatsAppFAB from './components/WhatsAppFAB';
+import KMKAssistant from './components/Chatbot/KMKAssistant';
 import PageTransition from './components/PageTransition';
 
 // BUG-04 FIX: Expose Lenis instance via context so child components can call lenis.scrollTo(0)
@@ -73,6 +74,7 @@ function AppInner() {
         </main>
       </PageTransition>
       <Footer />
+      <KMKAssistant />
       <WhatsAppFAB />
     </div>
   );
