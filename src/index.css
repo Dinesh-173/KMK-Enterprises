@@ -74,6 +74,23 @@ body {
   body { cursor: auto; }
 }
 
+/* Ensure clean standard cursor inside chatbot and dialogs */
+[role="dialog"],
+.chatbot-window,
+.chatbot-window * {
+  cursor: default !important;
+}
+.chatbot-window button,
+.chatbot-window a,
+.chatbot-window [role="button"],
+.chatbot-window .cursor-pointer {
+  cursor: pointer !important;
+}
+.chatbot-window input,
+.chatbot-window textarea {
+  cursor: text !important;
+}
+
 h1, h2, .font-display {
   font-family: "DM Serif Display", serif;
   color: #0A192F;

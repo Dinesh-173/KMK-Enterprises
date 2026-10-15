@@ -14,6 +14,11 @@ export default function CursorFollow() {
     if (isMobile) return;
 
     const onMove = (e) => {
+      const inChatbot = !!e.target.closest('[role="dialog"], .chatbot-window');
+      if (inChatbot) {
+        if (visible) setVisible(false);
+        return;
+      }
       targetRef.current = { x: e.clientX, y: e.clientY };
       if (!visible) setVisible(true);
     };
