@@ -39,6 +39,11 @@ const TEAM = [
     role: 'Quality & Product Innovation',
     expertise: 'Quality & Product Innovation leader with 18+ years across PepsiCo, Unilever, and McDonald’s. Expert in Quality Management, Food Safety, Regulatory Compliance, and Audits across India and global markets.',
   },
+  {
+    name: 'Suresh Kumar',
+    role: 'Sales Partner',
+    expertise: 'Suresh Kumar is a B.Sc. qualified professional with 30 years of experience in the Beverage, Food, and Dairy industries. He has extensive practical experience in industry operations, business development, sales, product knowledge, and customer relationships.',
+  },
 ];
 
 export default function About() {
@@ -238,25 +243,17 @@ export default function About() {
             </div>
           </AnimatedSection>
 
-          {/* Uniform Team Grid — all cards same size & perfectly contained */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
-            {TEAM.map((member, index) => {
-              // Center the 2 cards on the second row for lg screens (cols 2-3 and 4-5 out of 6)
-              const colClass = index < 3
-                ? 'lg:col-span-2'
-                : index === 3
-                  ? 'lg:col-start-2 lg:col-span-2'
-                  : 'lg:col-span-2';
-
-              return (
-                <motion.div
-                  key={member.name}
-                  className={`card-royal p-7 md:p-8 flex flex-col justify-start h-full ${colClass}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                >
+          {/* Uniform Team Grid — 6 cards in a balanced 2x3 layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {TEAM.map((member, index) => (
+              <motion.div
+                key={member.name}
+                className="card-royal p-7 md:p-8 flex flex-col justify-start h-full"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+              >
                   {/* Top: Avatar & Badge */}
                   <div className="flex items-center justify-between mb-4">
                     <div
@@ -295,8 +292,7 @@ export default function About() {
                     {member.expertise}
                   </p>
                 </motion.div>
-              );
-            })}
+            ))}
           </div>
         </div>
       </section>
