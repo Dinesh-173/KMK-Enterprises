@@ -29,7 +29,12 @@ function LoadingSpinner() {
       style={{ backgroundColor: '#060f1e' }}>
       <div className="relative">
         <div className="w-16 h-16 rounded-full border-2 animate-spin"
-          style={{ borderColor: 'rgba(0,168,150,0.2)', borderTopColor: '#00A896' }} />
+          style={{
+            borderTopColor: '#00A896',
+            borderRightColor: 'rgba(0,168,150,0.2)',
+            borderBottomColor: 'rgba(0,168,150,0.2)',
+            borderLeftColor: 'rgba(0,168,150,0.2)'
+          }} />
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-white font-bold text-xl">K</span>
         </div>
