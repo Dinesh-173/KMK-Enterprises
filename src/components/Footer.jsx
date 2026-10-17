@@ -10,10 +10,9 @@ const FOOTER_LINKS = {
     { label: 'Divisions', path: '/divisions' },
   ],
   Insights: [
-    { label: 'Blog & Articles', path: '/blog' },
-    { label: 'Case Studies', path: '/blog' },
-    { label: 'Food Tech Trends', path: '/blog' },
     { label: 'R&D Updates', path: '/research' },
+    { label: 'Formulation Solutions', path: '/services' },
+    { label: 'Industry Applications', path: '/industries' },
   ],
   Divisions: [
     { label: 'Sabrosa Ice Creams', path: '/divisions' },

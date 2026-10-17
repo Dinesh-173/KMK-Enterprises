@@ -10,7 +10,6 @@ const NAV_ITEMS = [
   { label: 'Industries', path: '/industries' },
   { label: 'Research', path: '/research' },
   { label: 'Divisions', path: '/divisions' },
-  { label: 'Blog', path: '/blog' },
   { label: 'Contact', path: '/contact' },
 ];
 

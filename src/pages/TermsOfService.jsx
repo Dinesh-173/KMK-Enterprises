@@ -37,7 +37,7 @@ export default function TermsOfService() {
                 {
                   num: '1',
                   title: 'About KMK Enterprises',
-                  content: 'KMK Enterprises is a food ingredient distribution and technology company based in Chennai, India. This website is intended to provide information about our company, products, services, and industry-related blog content.'
+                  content: 'KMK Enterprises is a food ingredient distribution and technology company based in Chennai, India. This website is intended to provide information about our company, products, services, and industry-related content.'
                 },
                 {
                   num: '2',

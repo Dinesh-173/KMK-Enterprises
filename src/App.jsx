@@ -18,7 +18,6 @@ const Services = lazy(() => import('./pages/Services'));
 const Industries = lazy(() => import('./pages/Industries'));
 const Research = lazy(() => import('./pages/Research'));
 const Divisions = lazy(() => import('./pages/Divisions'));
-const Blog = lazy(() => import('./pages/Blog'));
 const Contact = lazy(() => import('./pages/Contact'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
@@ -70,7 +69,6 @@ function AppInner() {
               <Route path="/industries" element={<Industries />} />
               <Route path="/research" element={<Research />} />
               <Route path="/divisions" element={<Divisions />} />
-              <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />

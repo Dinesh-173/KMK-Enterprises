@@ -8,7 +8,6 @@ const PAGE_NAMES = {
   '/industries': 'Industries',
   '/research': 'Research',
   '/divisions': 'Divisions',
-  '/blog': 'Insights',
   '/contact': 'Contact',
   '/privacy-policy': 'Privacy Policy',
   '/terms-of-service': 'Terms of Service',
