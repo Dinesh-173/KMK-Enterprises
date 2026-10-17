@@ -109,8 +109,8 @@ export default function Contact() {
                   </h2>
                   <div className="space-y-6">
                     {[
-                      { icon: Mail, label: 'Email', value: 'kmkenterprises@gmail.com', href: 'mailto:kmkenterprises@gmail.com' },
-                      { icon: Phone, label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
+                      { icon: Mail, label: 'Email', value: 'info@kmk.enterprise', href: 'mailto:info@kmk.enterprise' },
+                      { icon: Phone, label: 'Phone', value: '+91 98402 69391', href: 'tel:+919840269391' },
                       { icon: MapPin, label: 'Address', value: 'Chennai, Tamil Nadu, India' },
                       { icon: Clock, label: 'Hours', value: 'Monday – Saturday, 9:00 AM – 7:00 PM' },
                     ].map(({ icon: Icon, label, value, href }) => (

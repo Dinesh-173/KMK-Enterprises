@@ -45,7 +45,7 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
     const openaiApiKey = Deno.env.get('OPENAI_API_KEY') || '';
     const ownerEmail = Deno.env.get('OWNER_NOTIFICATION_EMAIL') || 'contact@kmkenterprises.com';
-    const ownerWhatsApp = Deno.env.get('OWNER_WHATSAPP_NUMBER') || '+919876543210';
+    const ownerWhatsApp = Deno.env.get('OWNER_WHATSAPP_NUMBER') || '+919840269391';
 
     if (!supabaseUrl || !supabaseServiceKey) {
       throw new Error('Supabase environment variables missing.');

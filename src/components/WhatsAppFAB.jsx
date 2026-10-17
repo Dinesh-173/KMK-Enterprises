@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-const WA_PHONE = '919876543210';
+const WA_PHONE = '919840269391';
 const WA_MESSAGE = encodeURIComponent("Hello KMK Enterprises, I'd like to enquire about your services.");
 const WA_URL = `https://wa.me/${WA_PHONE}?text=${WA_MESSAGE}`;
 

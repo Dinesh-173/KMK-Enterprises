@@ -76,7 +76,7 @@ supabase secrets set \
   OWNER_NOTIFICATION_EMAIL="manivvannan@kmkenterprises.com" \
   NOTIFICATION_FROM_EMAIL="notifications@kmkenterprises.com" \
   RESEND_API_KEY="re_..." \
-  OWNER_WHATSAPP_NUMBER="+919876543210" \
+  OWNER_WHATSAPP_NUMBER="+919840269391" \
   TWILIO_ACCOUNT_SID="AC..." \
   TWILIO_AUTH_TOKEN="..." \
   TWILIO_WHATSAPP_NUMBER="whatsapp:+14155238886"

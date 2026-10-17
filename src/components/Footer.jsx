@@ -47,8 +47,8 @@ export default function Footer() {
 
             <div className="space-y-3.5">
               {[
-                { icon: Mail, text: 'kmkenterprises@gmail.com' },
-                { icon: Phone, text: '+91 98765 43210' },
+                { icon: Mail, text: 'info@kmk.enterprise' },
+                { icon: Phone, text: '+91 98402 69391' },
                 { icon: MapPin, text: 'Chennai, Tamil Nadu, India' },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-3 text-sm font-mono text-slate-300">
