@@ -4,11 +4,11 @@ import { useSVGPathDraw } from '../hooks/useSVGPathDraw';
 import { Award, Users, Globe, Target, Star, TrendingUp } from 'lucide-react';
 
 const TIMELINE = [
-  { year: '2004', title: 'Foundation', desc: 'KMK Enterprises founded by Manivvannan A with a vision to revolutionize food technology consulting in India.' },
-  { year: '2008', title: 'R&D Lab Established', desc: 'State-of-the-art research and development facility commissioned for dairy & food formulation.' },
-  { year: '2012', title: 'Sabrosa Launch', desc: 'Sabrosa Ice Creams launched, pioneering millet-based premium ice cream ranges.' },
-  { year: '2016', title: 'RKV Expansion', desc: 'RKV Enterprises division expanded into premium food ingredient solutions.' },
-  { year: '2020', title: 'Digital Innovation', desc: 'Integrated AI-powered formulation tools accelerating product development by 3x.' },
+  { year: '2020', title: 'Foundation', desc: 'KMK Enterprises founded by Manivvannan A with a vision to revolutionize food technology consulting in India.' },
+  { year: '2020', title: 'R&D Lab Established', desc: 'State-of-the-art research and development facility commissioned for dairy & food formulation.' },
+  { year: '2021', title: 'Sabrosa Launch', desc: 'Sabrosa Ice Creams launched, pioneering millet-based premium ice cream ranges.' },
+  { year: '2022', title: 'RKV Expansion', desc: 'RKV Enterprises division expanded into premium food ingredient solutions.' },
+  { year: '2023', title: 'Digital Innovation', desc: 'Integrated AI-powered formulation tools accelerating product development by 3x.' },
   { year: '2024', title: 'Global Reach', desc: 'Serving 500+ products across 12+ industry verticals with international partnerships.' },
 ];
 
@@ -138,7 +138,7 @@ export default function About() {
                   </div>
                   <div>
                     <h3 className="text-2xl font-display font-normal text-navy" style={{ fontFamily: '"DM Serif Display", serif' }}>KMK Enterprises</h3>
-                    <p className="text-xs font-mono tracking-widest text-royal-primary uppercase font-bold mt-1">Est. 2004 • Chennai, India</p>
+                    <p className="text-xs font-mono tracking-widest text-royal-primary uppercase font-bold mt-1">Est. 2020 • Chennai, India</p>
                   </div>
                 </div>
                 <div className="hidden sm:flex items-center gap-2 bg-royal-subtle text-royal-primary text-xs font-mono font-bold px-3 py-1.5 rounded-full border border-royal-light">
@@ -212,7 +212,7 @@ export default function About() {
             <div className="space-y-12">
               {TIMELINE.map((item, i) => (
                 <div
-                  key={item.year}
+                  key={`${item.year}-${item.title}`}
                   className={`relative flex items-start gap-8 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} flex-row`}
                 >
                   <div className="absolute left-8 md:left-1/2 w-5 h-5 rounded-full -translate-x-1/2 z-10 flex-shrink-0 bg-royal-primary border-2 border-white shadow-md" />
