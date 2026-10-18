@@ -84,7 +84,7 @@ export default function TermsOfService() {
               <div className="bg-soft rounded-xl p-6 border border-cream-divider space-y-3 font-mono text-sm text-navy">
                 <div className="flex items-center gap-3 font-bold">
                   <Mail className="w-4 h-4 text-royal-primary" />
-                  <span>info@kmk.enterprise</span>
+                  <span>info@kmk.enterprises</span>
                 </div>
                 <div className="flex items-center gap-3 font-bold">
                   <MapPin className="w-4 h-4 text-royal-primary" />

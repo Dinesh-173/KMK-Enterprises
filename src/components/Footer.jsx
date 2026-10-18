@@ -46,7 +46,7 @@ export default function Footer() {
 
             <div className="space-y-3.5">
               {[
-                { icon: Mail, text: 'info@kmk.enterprise' },
+                { icon: Mail, text: 'info@kmk.enterprises' },
                 { icon: Phone, text: '+91 98402 69391' },
                 { icon: MapPin, text: 'Chennai, Tamil Nadu, India' },
               ].map(({ icon: Icon, text }) => (
